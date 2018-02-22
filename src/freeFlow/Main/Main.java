@@ -1,5 +1,4 @@
-package Main;
-
+package freeFlow.Main;
 import freeFlow.model.Game;
 import freeFlow.model.Level;
 import freeFlow.model.Player;
@@ -11,6 +10,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         // test setup
@@ -18,15 +21,14 @@ public class Main extends Application {
         Level level = new Level(5);
 
         Game model = new Game(1, player, level);
-        GraphicGameView view = new GraphicGameView();
+
+        GraphicGameView view = new GraphicGameView(5);
         GraphicGamePresenter presenter = new GraphicGamePresenter(model, view);
 
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Free Flow");
         primaryStage.show();
     }
-
-    public static void main(String[] args) {Application.launch(args);}
 
 }
 

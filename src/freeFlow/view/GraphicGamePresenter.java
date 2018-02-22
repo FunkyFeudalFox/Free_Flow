@@ -2,6 +2,7 @@ package freeFlow.view;
 
 import freeFlow.model.Dot;
 import freeFlow.model.Game;
+import freeFlow.model.Space;
 
 /**
  * @author Arjan Tammer
@@ -28,10 +29,23 @@ public class GraphicGamePresenter {
         view.drawGrid(model.COLUMNS, model.ROWS);
 
 
-        for (Object o  : model.getLevel().getPlayingField()){
-            if ( o.getClass() == Dot.class )
-                view.drawDot( (Dot) o );
+        for (int row = 0; row < model.getLevel().getPlayingField().length; row++){
+            for (int col = 0; col < model.getLevel().getPlayingField()[row].length; col++){
+                Space current = model.getLevel().getPlayingField()[row][col];
+                if (current instanceof Dot){
+                    view.drawDot((Dot) current);
+                }
+            }
         }
+
+        /*
+        for (Space [] row : model.getLevel().getPlayingField()){
+            for (Space space : row){
+                if (space instanceof Dot)
+                    view.drawDot( (Dot) space );
+            }
+        }
+        */
     }
 
     private int translateXToColumn(final double x) {
