@@ -2,7 +2,10 @@ package freeFlow.view;
 
 import freeFlow.model.Dot;
 import freeFlow.model.Game;
+import freeFlow.model.Pipe;
 import freeFlow.model.Space;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 /**
  * @author Arjan Tammer
@@ -17,6 +20,42 @@ public class GraphicGamePresenter {
         this.model = model;
         this.view = view;
         start();
+    }
+
+    public void buildPipe(){
+        view.getCanvas().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                int column = translateXToColumn(event.getX());
+                int row = translateYToRow(event.getY());
+                if ((model.getLevel().getPlayingField()[column][row]) instanceof Dot){
+                    Dot currentDot = (Dot)model.getLevel().getPlayingField()[column][row];
+
+                    Pipe currentPipe = new Pipe(currentDot.getColour(), true,
+                            (Dot)model.getLevel().getPlayingField()[column][row] );
+                    for (Pipe pipe : model.getLevel().getPipes()){
+                        if (pipe.getIsSelected()){
+                            pipe.setSelected(false);
+                        }
+                    }
+                    model.getLevel().addPipe(currentPipe);
+
+                    //eventhandlers voor MouseMoved events over volgende vakjes,
+                    //vervolgens nieuwe stukken pipe tekenen
+
+                    view.getCanvas().setOnMouseMoved(new EventHandler<MouseEvent>(){
+                        @Override
+                        public void handle(MouseEvent event2){
+                            int nextColumn = translateXToColumn(event2.getX());
+                            int nextRow = translateYToRow(event2.getY());
+                            if (column != nextColumn || row != nextRow){
+
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public Game getModel() {

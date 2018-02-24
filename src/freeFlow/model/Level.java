@@ -10,6 +10,7 @@ import java.util.List;
 public class Level {
     private Space [][] playingField;
     private List <Score> highScores;
+    private List <Pipe> pipes;
 
     private int size;
 
@@ -17,7 +18,9 @@ public class Level {
         return size;
     }
 
-
+    public List<Pipe> getPipes() {
+        return pipes;
+    }
 
     private int levelNumber;
 
@@ -31,6 +34,7 @@ public class Level {
             }
         }
         highScores = new ArrayList<>();
+        pipes = new ArrayList<>();
     }
 
     protected String displayLevelSize(){
@@ -40,6 +44,8 @@ public class Level {
     public void addDot(Dot dot) {
         this.playingField[dot.x][dot.y] = dot;
     }
+
+    public void addPipe(Pipe pipe) {this.pipes.add(pipe); }
 
 
 

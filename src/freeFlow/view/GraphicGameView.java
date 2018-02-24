@@ -27,6 +27,7 @@ public class GraphicGameView extends BorderPane {
         this.levelSize = levelSize;
     }
 
+
     public void initializeNodes(){
         this.canvas = new Canvas(1000,1000);
     }
