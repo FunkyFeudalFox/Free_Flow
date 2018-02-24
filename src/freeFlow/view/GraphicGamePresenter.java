@@ -1,9 +1,6 @@
 package freeFlow.view;
 
-import freeFlow.model.Dot;
-import freeFlow.model.Game;
-import freeFlow.model.Pipe;
-import freeFlow.model.Space;
+import freeFlow.model.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -23,6 +20,7 @@ public class GraphicGamePresenter {
     }
 
     public void buildPipe(){
+
         view.getCanvas().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
@@ -50,7 +48,24 @@ public class GraphicGamePresenter {
                             int nextRow = translateYToRow(event2.getY());
                             if (column != nextColumn || row != nextRow){
 
+                                if( model.getLevel().getPlayingField()[nextColumn][nextRow] instanceof EmptySpace){
+                                    EmptySpace currentEmptySpace = (EmptySpace) model.getLevel().getPlayingField()[nextColumn][nextRow];
+                                    currentEmptySpace.setPipe(currentPipe);
+                                    currentEmptySpace.setColour(currentPipe.getColour());
+                                    currentEmptySpace.setIsPartOfPipe(true);
+                                    model.getLevel().getPlayingField()[nextColumn][nextRow] = currentEmptySpace;
+
+                                    //tekenen. komt vanuit column en row en gaat naar nextColumn en nextRow
+                                    // stroke line (canvas.width / 12 ) lengte voor halve pipe
+
+                                    //aan het eind hiervan: column = nextColumn en row = nextRow
+                                }
+
+                                //als veld [nextColumn][nextRow] een Dot is van dezelfde kleur, dan Pipe afmaken en isLocked(true)
+                                //daarna updateView()
+
                             }
+
                         }
                     });
                 }

@@ -6,6 +6,11 @@ package freeFlow.model;
  */
 public class Pipe {
     private Colour colour;
+
+    public Colour getColour() {
+        return colour;
+    }
+
     private boolean isSelected;
 
     public boolean getIsSelected() {

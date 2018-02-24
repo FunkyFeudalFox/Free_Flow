@@ -31,10 +31,6 @@ public class Dot extends Space {
         this.isLocked = false;
     }
 
-    public void draw() {
-        // TODO
-
-    }
 
     public String drawConsole() {
         StringBuilder sb = new StringBuilder();

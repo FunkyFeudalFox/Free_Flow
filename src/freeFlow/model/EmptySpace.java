@@ -6,15 +6,23 @@ package freeFlow.model;
  */
 public class EmptySpace extends Space {
     private Colour colour;
-    private int x, y;
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
 
     private boolean isPartOfPipe;
 
+    public void setIsPartOfPipe(boolean partOfPipe) {
+        isPartOfPipe = partOfPipe;
+    }
+
     private Pipe pipe;
 
-    public void draw() {
-
+    public void setPipe(Pipe pipe) {
+        this.pipe = pipe;
     }
+
 
     public String drawConsole() {
         if (isPartOfPipe){

@@ -45,6 +45,8 @@ public class Level {
         this.playingField[dot.x][dot.y] = dot;
     }
 
+    public void addEmptySpace(EmptySpace emptySpace){ this.playingField[emptySpace.x][emptySpace.y] = emptySpace;}
+
     public void addPipe(Pipe pipe) {this.pipes.add(pipe); }
 
 

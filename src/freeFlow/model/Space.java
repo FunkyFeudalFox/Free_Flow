@@ -6,7 +6,7 @@ package freeFlow.model;
  */
 public abstract class Space {
 
-    int x, y;
+    protected int x, y;
     boolean isSelected;
 
 
