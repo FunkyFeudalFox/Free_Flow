@@ -5,7 +5,6 @@ package freeFlow.model;
  * @version 1.0 2/14/2018 19:45
  */
 public class EmptySpace extends Space {
-    private Colour colour;
 
     public void setColour(Colour colour) {
         this.colour = colour;
@@ -23,15 +22,12 @@ public class EmptySpace extends Space {
         this.pipe = pipe;
     }
 
-
-    public String drawConsole() {
-        if (isPartOfPipe){
-            return " " + Character.toLowerCase(this.colour.getImage()) + " ";
-        }
-        else{
-            return " . ";
-        }
-
-
+    public char getConsoleImage() {
+        return '.';
     }
+
+    public boolean isCreatePipeValid(Colour colour) {
+        return true;
+    }
+
 }

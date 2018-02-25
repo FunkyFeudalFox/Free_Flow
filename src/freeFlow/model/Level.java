@@ -14,6 +14,8 @@ public class Level {
 
     private int size;
 
+    private Space selectedSpace;
+
     public int getSize() {
         return size;
     }
@@ -35,6 +37,7 @@ public class Level {
         }
         highScores = new ArrayList<>();
         pipes = new ArrayList<>();
+        selectedSpace = null;
     }
 
     protected String displayLevelSize(){
@@ -49,7 +52,20 @@ public class Level {
 
     public void addPipe(Pipe pipe) {this.pipes.add(pipe); }
 
+    public void addPipePart(PipePart pipePart){
+        this.playingField[pipePart.getX()][pipePart.getY()] = pipePart;
+    }
 
+    public void setSelected(int x, int y) {
+        if (selectedSpace != null)
+            selectedSpace.setSelected(false);
+        selectedSpace = this.playingField[x][y];
+        this.playingField[x][y].setSelected(true);
+    }
+
+    public Space getSelectedSpace() {
+        return selectedSpace;
+    }
 
     public Space [][] getPlayingField() {
         return playingField;
@@ -57,6 +73,28 @@ public class Level {
 
     public Space getDrawable(int x, int y) {
         return playingField[x][y];
+    }
+
+    public void createPipe(Space fromSpace, int toX, int toY) {
+        if (fromSpace.getX() != toX
+                && fromSpace.getY() != toY) {
+            // can only create straight line
+            return;
+        }
+        // validate spaces between start and end point
+        for (int x = fromSpace.getX(); x <= toX; x++) {
+            for (int y = fromSpace.getY(); y <= toY; y++) {
+                if (!playingField[x][y].isCreatePipeValid(fromSpace.getColour()))
+                    return;
+            }
+        }
+        // validation OK => create pipe
+        for (int x = fromSpace.getX(); x <= toX; x++) {
+            for (int y = fromSpace.getY(); y <= toY; y++) {
+                if (playingField[x][y] instanceof EmptySpace)
+                    addPipePart(new PipePart(x, y, Colour.YELLOW));
+            }
+        }
     }
 
 }

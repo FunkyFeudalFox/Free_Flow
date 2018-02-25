@@ -1,26 +1,18 @@
 package freeFlow.model;
 
-/**
- * @author Arjan Tammer
- * @version 1.0 2/8/2018 21:31
- */
-public class Dot extends Space {
+public class PipePart extends Space {
 
-    private boolean isLocked;
-
-    Dot(int x, int y, Colour colour) {
+    public PipePart(int x, int y, Colour colour) {
         this.x = x;
         this.y = y;
         this.colour = colour;
-        this.isLocked = false;
     }
 
     public char getConsoleImage() {
-        return colour.getConsoleImage();
+        return Character.toLowerCase(colour.getConsoleImage());
     }
 
     public boolean isCreatePipeValid(Colour colour) {
         return this.colour == colour;
     }
-
 }

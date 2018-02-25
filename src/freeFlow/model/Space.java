@@ -7,8 +7,10 @@ package freeFlow.model;
 public abstract class Space {
 
     protected int x, y;
-    boolean isSelected;
 
+    Colour colour;
+
+    boolean isSelected;
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
@@ -17,5 +19,21 @@ public abstract class Space {
     public boolean getSelected() {
         return isSelected;
     }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    abstract public char getConsoleImage();
+
+    abstract boolean isCreatePipeValid(Colour colour);
 
 }

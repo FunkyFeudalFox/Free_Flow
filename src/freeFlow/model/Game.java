@@ -14,6 +14,8 @@ public class Game {
 
     private boolean isSolved;
 
+    private boolean exit;
+
     //Hier moet t.z.t. eigenlijk iets zoals this.level.getSize();, maar voor nu
     //de columns hardcoded omdat het programma anders een null-pointer exception
     //gaf bij het aanmaken van een nieuw Game model
@@ -83,4 +85,11 @@ public class Game {
         player.setName(name);
     }
 
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
+    public boolean getExit() {
+        return exit;
+    }
 }

@@ -9,14 +9,14 @@ public enum Colour {
 
     RED('R'), GREEN('G'), YELLOW('Y'), BLUE('B'), ORANGE('O'), PINK('P'), CYAN('C'), DARKBROWN('D'), LILAC('L');
 
-    Colour(char image) {
-        this.image = image;
+    Colour(char consoleImage) {
+        this.consoleImage = consoleImage;
     }
 
-    private char image;
+    private char consoleImage;
 
-    public char getImage() {
-        return image;
+    public char getConsoleImage() {
+        return consoleImage;
     }
 
 }
