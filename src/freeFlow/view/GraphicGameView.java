@@ -1,5 +1,6 @@
 package freeFlow.view;
 
+import freeFlow.model.Colour;
 import freeFlow.model.Dot;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -67,6 +68,8 @@ public class GraphicGameView extends BorderPane {
         final GraphicsContext gc = this.canvas.getGraphicsContext2D();
 
         Color color;
+        chooseColour(dot.getColour());
+        /*
         switch (dot.getColour()){
             case RED: gc.setFill(Color.RED);
                 break;
@@ -94,9 +97,54 @@ public class GraphicGameView extends BorderPane {
 
             case LILAC: gc.setFill(Color.MEDIUMPURPLE);
                 break;
-        }
+        }*/
         gc.fillOval(locationX ,locationY,150,150);
         setCenter(canvas);
+    }
+
+    protected void drawPipe(double startLocationX, double startLocationY, double endLocationX, double endLocationY, Colour colour){
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+
+
+        //choose colour
+        chooseColour(colour);
+
+        //draw
+        gc.strokeLine(startLocationX, startLocationY, endLocationX, endLocationY);
+
+    }
+
+    private void chooseColour(Colour colour){
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        switch (colour){
+            case RED: gc.setFill(Color.RED);
+                break;
+
+            case GREEN: gc.setFill(Color.GREEN);
+                break;
+
+            case YELLOW: gc.setFill(Color.YELLOW);
+                break;
+
+            case BLUE: gc.setFill(Color.BLUE);
+                break;
+
+            case ORANGE: gc.setFill(Color.ORANGE);
+                break;
+
+            case PINK: gc.setFill(Color.PINK);
+                break;
+
+            case CYAN: gc.setFill(Color.CYAN);
+                break;
+
+            case DARKBROWN: gc.setFill(Color.BROWN);
+                break;
+
+            case LILAC: gc.setFill(Color.MEDIUMPURPLE);
+                break;
+        }
+
     }
 
 

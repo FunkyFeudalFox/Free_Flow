@@ -17,6 +17,7 @@ public class GraphicGamePresenter {
         this.model = model;
         this.view = view;
         start();
+        buildPipe();
     }
 
     public void buildPipe(){
@@ -56,9 +57,17 @@ public class GraphicGamePresenter {
                                     model.getLevel().getPlayingField()[nextColumn][nextRow] = currentEmptySpace;
 
                                     //tekenen. komt vanuit column en row en gaat naar nextColumn en nextRow
+                                    double startLocationX = translateColumnToX(column);
+                                    double startLocationY = translateRowToY(row);
+                                    double endLocationX = translateColumnToX(nextColumn);
+                                    double endLocationY = translateRowToY(nextRow);
+
+
+                                    view.drawPipe(startLocationX, startLocationY, endLocationX, endLocationY, currentPipe.getColour());
                                     // stroke line (canvas.width / 12 ) lengte voor halve pipe
 
                                     //aan het eind hiervan: column = nextColumn en row = nextRow
+
                                 }
 
                                 //als veld [nextColumn][nextRow] een Dot is van dezelfde kleur, dan Pipe afmaken en isLocked(true)
@@ -122,6 +131,19 @@ public class GraphicGamePresenter {
         else {
             return -1;
         }
+    }
+
+    private double translateColumnToX(final int column){
+        final double width = this.view.getCanvas().getWidth();
+        final double xResult = (column / model.COLUMNS * width);
+        return xResult;
+
+    }
+
+    private double translateRowToY(final int row){
+        final double height = this.view.getCanvas().getHeight();
+        final double yResult = (row / model.ROWS * height );
+        return yResult;
     }
 
 
