@@ -20,7 +20,15 @@ public class Dot extends Space {
     }
 
     public boolean isCreatePipeValid(Colour colour) {
-        return this.colour == colour;
+        return !isLocked && this.colour == colour;
+    }
+
+    public void setLocked() {
+        this.isLocked = true;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
     }
 
 }

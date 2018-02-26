@@ -72,9 +72,16 @@ public class Game {
         //TODO
     }
 
-    public void checkWinConditions(){
-        //TODO
-        //Collaborator: Level?
+    public boolean checkWinConditions(){
+        // mss beter een list van dots bijhouden in level?
+        for (int x = 0; x < level.getSize(); x++) {
+            for (int y = 0; y < level.getSize(); y++) {
+                if (level.getPlayingField()[x][y] instanceof Dot &&
+                        !((Dot) level.getPlayingField()[x][y]).isLocked())
+                    return false;
+            }
+        }
+        return true;
     }
 
     public Level getLevel() {

@@ -2,6 +2,7 @@ package freeFlow.view;
 
 import freeFlow.model.Space;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class ConsoleGameView {
@@ -22,6 +23,10 @@ public class ConsoleGameView {
 
     void drawSeparator(boolean isSelected, boolean isSelected2) {
         System.out.print(isSelected ? '[' : isSelected2 ? ']' : ' ');
+    }
+
+    void drawVictory(){
+        System.out.println("Proficiat! Je hebt gewonnen.");
     }
 
     String inputGridLocation() {

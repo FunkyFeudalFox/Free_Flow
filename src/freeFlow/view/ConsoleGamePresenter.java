@@ -19,6 +19,7 @@ public class ConsoleGamePresenter {
         while (!model.getExit()) {
             drawLevel();
             validateGridLocation(view.inputGridLocation());
+            checkWinConditions();
         }
     }
 
@@ -63,5 +64,12 @@ public class ConsoleGamePresenter {
         }
         model.getLevel().setSelected(x, y);
         return true;
+    }
+
+    private void checkWinConditions() {
+        if (model.checkWinConditions()) {
+            view.drawVictory();
+            model.setExit(true);
+        }
     }
 }
