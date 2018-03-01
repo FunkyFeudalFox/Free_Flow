@@ -21,11 +21,25 @@ public class Pipe {
         isSelected = selected;
     }
 
+    private boolean isLocked = false;
+
+    public boolean getIsLocked() {
+        return isLocked;
+    }
+
+    public void setIsLocked(boolean locked) {
+        isLocked = locked;
+    }
+
     private int x, y;
 
     private Dot dot1;
 
     private Dot dot2;
+
+    public void setDot2(Dot dot2) {
+        this.dot2 = dot2;
+    }
 
     public Pipe(Colour colour, boolean isSelected, Dot dot1) {
         this.colour = colour;

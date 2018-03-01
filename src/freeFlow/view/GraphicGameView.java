@@ -110,7 +110,10 @@ public class GraphicGameView extends BorderPane {
         chooseColour(colour);
 
         //draw
-        gc.strokeLine(startLocationX, startLocationY, endLocationX, endLocationY);
+        gc.strokeLine (startLocationX, startLocationY, endLocationX, endLocationY);
+        // also an option:
+        //gc.strokeRect();
+        //double x, double y, double w, double h
 
     }
 
