@@ -1,8 +1,5 @@
 package freeFlow.view;
 
-import freeFlow.model.Space;
-
-import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class ConsoleGameView {
@@ -10,6 +7,14 @@ public class ConsoleGameView {
         System.out.println("Voer uw naam in: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    void drawTopGrid(int size) {
+        System.out.print(' ');
+        for (int x = 1; x <= size; x++) {
+            System.out.print(' ' + Integer.toString(x));
+        }
+        System.out.println();
     }
 
     void drawPart(char part) {
