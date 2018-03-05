@@ -1,7 +1,6 @@
 package freeFlow.view;
 
 import freeFlow.model.Colour;
-import freeFlow.model.Dot;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
@@ -13,14 +12,15 @@ import javafx.scene.paint.Color;
  */
 public class GraphicGameView extends BorderPane {
 
+    private static final int BASE_CANVAS_WIDTH = 500;
+    private static final int BASE_CANVAS_HEIGHT = 500;
+    private static final int DOT_GRID_MARGIN = 10;
+    private static final int PIPE_GRID_MARGIN = 20;
     private Canvas canvas;
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-
     private int levelSize;
+    private double spaceWidth;
+    private double spaceHeight;
 
     public GraphicGameView(int levelSize){
         this.initializeNodes();
@@ -28,78 +28,45 @@ public class GraphicGameView extends BorderPane {
         this.levelSize = levelSize;
     }
 
-
     public void initializeNodes(){
-        this.canvas = new Canvas(1000,1000);
+        this.canvas = new Canvas(BASE_CANVAS_WIDTH, BASE_CANVAS_HEIGHT);
     }
 
-
-
     public void layoutNodes(){
-
         this.setCenter(this.canvas);
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
     }
 
     protected void drawGrid(int columns, int rows){
         final GraphicsContext gc = this.canvas.getGraphicsContext2D();
 
-        final double totalWidth = this.canvas.getWidth();
-        final double totalHeight = this.canvas.getHeight();
-        final double rowHeight = totalHeight / rows;
-        final double columnWidth = totalWidth / columns;
+        double totalWidth = this.canvas.getWidth();
+        double totalHeight = this.canvas.getHeight();
+        spaceHeight = totalHeight / rows;
+        spaceWidth = totalWidth / columns;
 
         for (int r = 1; r < rows; r++) {
-            gc.strokeLine(0.0, rowHeight * r, totalWidth, rowHeight * r);
+            gc.strokeLine(0.0, spaceHeight * r, totalWidth, spaceHeight * r);
         }
 
         for (int c = 1; c < columns; c++) {
-            gc.strokeLine(columnWidth * c, 0.0, columnWidth * c, totalHeight);
+            gc.strokeLine(spaceWidth * c, 0.0, spaceWidth * c, totalHeight);
         }
     }
 
-    protected void drawDot(Dot dot){
+    protected void drawDot(int x, int y, Colour colour, boolean isSelected) {
 
-        double locationX = (dot.getX() * canvas.getWidth() / levelSize);
-        locationX+=25;
-        double locationY = (dot.getY() * canvas.getWidth() / levelSize );
-        locationY+=25;
-
+        drawSpace(x, y, isSelected);    // redraw background
+        x += DOT_GRID_MARGIN / 2;
+        y += DOT_GRID_MARGIN / 2;
 
         final GraphicsContext gc = this.canvas.getGraphicsContext2D();
 
-        Color color;
-        chooseColour(dot.getColour());
-        /*
-        switch (dot.getColour()){
-            case RED: gc.setFill(Color.RED);
-                break;
-
-            case GREEN: gc.setFill(Color.GREEN);
-                break;
-
-            case YELLOW: gc.setFill(Color.YELLOW);
-                break;
-
-            case BLUE: gc.setFill(Color.BLUE);
-                break;
-
-            case ORANGE: gc.setFill(Color.ORANGE);
-                break;
-
-            case PINK: gc.setFill(Color.PINK);
-                break;
-
-            case CYAN: gc.setFill(Color.CYAN);
-                break;
-
-            case DARKBROWN: gc.setFill(Color.BROWN);
-                break;
-
-            case LILAC: gc.setFill(Color.MEDIUMPURPLE);
-                break;
-        }*/
-        gc.fillOval(locationX ,locationY,150,150);
-        setCenter(canvas);
+        gc.setFill(colour.getColour());
+        gc.fillOval(x, y, spaceWidth - DOT_GRID_MARGIN, spaceHeight - DOT_GRID_MARGIN);
     }
 
     protected void drawPipe(double startLocationX, double startLocationY, double endLocationX, double endLocationY, Colour colour){
@@ -107,7 +74,7 @@ public class GraphicGameView extends BorderPane {
 
 
         //choose colour
-        chooseColour(colour);
+
 
         //draw
         gc.strokeLine (startLocationX, startLocationY, endLocationX, endLocationY);
@@ -117,38 +84,19 @@ public class GraphicGameView extends BorderPane {
 
     }
 
-    private void chooseColour(Colour colour){
+    protected void drawSpace(int x, int y, boolean isSelected) {
         final GraphicsContext gc = this.canvas.getGraphicsContext2D();
-        switch (colour){
-            case RED: gc.setFill(Color.RED);
-                break;
-
-            case GREEN: gc.setFill(Color.GREEN);
-                break;
-
-            case YELLOW: gc.setFill(Color.YELLOW);
-                break;
-
-            case BLUE: gc.setFill(Color.BLUE);
-                break;
-
-            case ORANGE: gc.setFill(Color.ORANGE);
-                break;
-
-            case PINK: gc.setFill(Color.PINK);
-                break;
-
-            case CYAN: gc.setFill(Color.CYAN);
-                break;
-
-            case DARKBROWN: gc.setFill(Color.BROWN);
-                break;
-
-            case LILAC: gc.setFill(Color.MEDIUMPURPLE);
-                break;
-        }
-
+        gc.setFill(isSelected ? Color.BLACK : Color.WHITE);
+        gc.fillRect(x + 1, y + 1, spaceWidth - 2, spaceHeight - 2);
     }
 
+    protected void drawPipePart(int x, int y, Colour colour, boolean isSelected) {
+        drawSpace(x, y, isSelected);    // redraw background
+        x += PIPE_GRID_MARGIN;
+
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x, y, spaceWidth - PIPE_GRID_MARGIN, spaceHeight);
+    }
 
 }

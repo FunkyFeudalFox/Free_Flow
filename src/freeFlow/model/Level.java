@@ -32,7 +32,7 @@ public class Level {
         playingField = new Space[size][size];
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                playingField[x][y] = new EmptySpace();
+                playingField[x][y] = new EmptySpace(x, y);
             }
         }
         highScores = new ArrayList<>();
@@ -82,17 +82,17 @@ public class Level {
             return;
         }
         // validate spaces between start and end point
-        for (int x = fromSpace.getX(); x <= toX; x++) {
-            for (int y = fromSpace.getY(); y <= toY; y++) {
+        int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
+        int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
+        int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
+        int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
+        for (int x = startX; x <= endX; x++) {
+            for (int y = startY; y <= endY; y++) {
                 if (!playingField[x][y].isCreatePipeValid(fromSpace.getColour()))
                     return;
             }
         }
         // validation OK => create pipe
-        int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
-        int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
-        int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
-        int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
                 if (playingField[x][y] instanceof EmptySpace)
@@ -102,6 +102,7 @@ public class Level {
         // lock dots
         if (fromSpace instanceof Dot)
             ((Dot) fromSpace).setLocked();
+        // lock pipe parts TODO
         if (playingField[toX][toY] instanceof Dot)
             ((Dot) playingField[toX][toY]).setLocked();
     }

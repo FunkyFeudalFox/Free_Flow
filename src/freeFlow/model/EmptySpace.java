@@ -6,6 +6,11 @@ package freeFlow.model;
  */
 public class EmptySpace extends Space {
 
+    public EmptySpace(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void setColour(Colour colour) {
         this.colour = colour;
     }

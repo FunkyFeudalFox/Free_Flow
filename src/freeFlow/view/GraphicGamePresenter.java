@@ -2,9 +2,11 @@ package freeFlow.view;
 
 import freeFlow.model.*;
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -35,158 +37,21 @@ public class GraphicGamePresenter {
     public GraphicGamePresenter(Game model, GraphicGameView view){
         this.model = model;
         this.view = view;
+        // init event handlers
         start();
-        //dotClick();
-        buildPipeVersionTwo();
-
-    }
-
-    public void dotClick(){
-        view.getCanvas().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                column = translateXToColumn(event.getX());
-                row = translateYToRow(event.getY());
-                if ((model.getLevel().getPlayingField()[column][row]) instanceof Dot) {
-                    Dot currentDot = (Dot) model.getLevel().getPlayingField()[column][row];
-
-
-                    currentPipe = new Pipe(currentDot.getColour(), true,
-                            (Dot) model.getLevel().getPlayingField()[column][row]);
-                    for (Pipe pipe : model.getLevel().getPipes()) {
-                        if (pipe.getIsSelected()) {
-                            pipe.setSelected(false);
-                        }
-                    }
-                    model.getLevel().addPipe(currentPipe);
-                    dotIsClicked = true;
-                    buildPipe();
-
-                }
-            }
-        });
-    }
-
-
-    public void buildPipe() {
-
-
-            /*
-
-            //pauze op MouseMoved event inbouwen
-            PauseTransition pause = new PauseTransition(Duration.millis(50));
-            pause.setOnFinished((ActionEvent event) -> {
-                checkMouseMovedOverEmptySpace();
-            });
-            pause.playFromStart();
-        }
-    }
-
-
-    //eventhandlers voor MouseMoved events over volgende vakjes,
-    //vervolgens nieuwe stukken pipe tekenen
-
-    private void checkMouseMovedOverEmptySpace(){
-    */
-            do {
-
-                if (dotIsClicked) {
-
-
-                view.getCanvas().setOnMouseMoved(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event2) {
-                        nextColumn = translateXToColumn(event2.getX());
-                        nextRow = translateYToRow(event2.getY());
-
-                        if (column != nextColumn || row != nextRow) {
-
-                            if (model.getLevel().getPlayingField()[nextColumn][nextRow] instanceof EmptySpace) {
-                                EmptySpace currentEmptySpace = (EmptySpace) model.getLevel().getPlayingField()[nextColumn][nextRow];
-                                currentEmptySpace.setPipe(currentPipe);
-                                currentEmptySpace.setColour(currentPipe.getColour());
-                                currentEmptySpace.setIsPartOfPipe(true);
-                                model.getLevel().getPlayingField()[nextColumn][nextRow] = currentEmptySpace;
-
-                                //tekenen. komt vanuit column en row en gaat naar nextColumn en nextRow
-                                double startLocationX = translateColumnToX(column);
-                                double startLocationY = translateRowToY(row);
-                                double endLocationX = translateColumnToX(nextColumn);
-                                double endLocationY = translateRowToY(nextRow);
-
-
-                                view.drawPipe(startLocationX, startLocationY, endLocationX, endLocationY, currentPipe.getColour());
-                                // stroke line (canvas.width / 12 ) lengte voor halve pipe
-
-                                //aan het eind hiervan: column = nextColumn en row = nextRow
-
-                            }
-
-                            //als veld [nextColumn][nextRow] een Dot is van dezelfde kleur, dan Pipe afmaken en isLocked(true)
-                            if (model.getLevel().getPlayingField()[nextColumn][nextRow] instanceof Dot) {
-                                Dot currentDot = (Dot) model.getLevel().getPlayingField()[nextColumn][nextRow];
-                                if (currentDot.getColour() == currentPipe.getColour()) {
-                                    currentPipe.setDot2((Dot) model.getLevel().getPlayingField()[nextColumn][nextRow]);
-
-                                    //
-                                    //draw last bit of pipe on column & row to currentDot
-                                    //
-
-                                    currentPipe.setIsLocked(true);
-                                }
-                            }
-                        }
-                        column = nextColumn;
-                        row = nextRow;
-                    }
-
-                });
-            }
-
-        }while (!(currentPipe.getIsLocked()&& dotIsClicked) );
-    }
-
-    public void testDrawPipe(double startLocationX, double startLocationY, Colour colour){
-        view.drawPipe(startLocationX, startLocationY,950,700,colour);
-    }
-
-    public void buildPipeVersionTwo(){
-        view.getCanvas().setOnMouseDragged(new EventHandler <MouseEvent>(){
-            @Override
-            public void handle (MouseEvent e){
-                testDrawPipe(e.getX(), e.getY(), Colour.YELLOW);
-
-            }
-        });
-    }
-
-    public Game getModel() {
-        return model;
+        view.getCanvas().setOnMouseClicked(new MouseClickHandler());
     }
 
     private void start(){
         model.setUserName("Johannes");
         model.startGame();
-        view.drawGrid(model.COLUMNS, model.ROWS);
 
+        refreshView();
 
-        for (int row = 0; row < model.getLevel().getPlayingField().length; row++){
-            for (int col = 0; col < model.getLevel().getPlayingField()[row].length; col++){
-                Space current = model.getLevel().getPlayingField()[row][col];
-                if (current instanceof Dot){
-                    view.drawDot((Dot) current);
-                }
-            }
-        }
+    }
 
-        /*
-        for (Space [] row : model.getLevel().getPlayingField()){
-            for (Space space : row){
-                if (space instanceof Dot)
-                    view.drawDot( (Dot) space );
-            }
-        }
-        */
+    public Game getModel() {
+        return model;
     }
 
     private int translateXToColumn(final double x) {
@@ -194,8 +59,7 @@ public class GraphicGamePresenter {
         final int columnResult = (int)(x / width * model.COLUMNS);
         if (columnResult >= 0 && columnResult < model.COLUMNS) {
             return columnResult;
-        }
-        else {
+        } else {
             return -1;
         }
     }
@@ -205,24 +69,71 @@ public class GraphicGamePresenter {
         final int rowResult = (int)(y / height * model.ROWS);
         if (rowResult >= 0 && rowResult < model.ROWS) {
             return rowResult;
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    private double translateColumnToX(final int column){
+    private int translateColumnToX(final int column) {
         final double width = this.view.getCanvas().getWidth();
-        final double xResult = (column / model.COLUMNS * width);
+        final int xResult = (int) (column * width / model.COLUMNS);
         return xResult;
 
     }
 
-    private double translateRowToY(final int row){
+    private int translateRowToY(final int row) {
         final double height = this.view.getCanvas().getHeight();
-        final double yResult = (row / model.ROWS * height );
+        final int yResult = (int) (row * height / model.ROWS);
         return yResult;
     }
 
+    private void redraw(Space space) {
+        if (space instanceof EmptySpace) {
+            view.drawSpace(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getSelected());
+        } else if (space instanceof Dot) {
+            view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
+        } else if (space instanceof PipePart) {
+            view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
+        }
+    }
 
+    private void refreshView() {
+        view.drawGrid(model.COLUMNS, model.ROWS);
+        for (int row = 0; row < model.getLevel().getPlayingField().length; row++) {
+            for (int col = 0; col < model.getLevel().getPlayingField()[row].length; col++) {
+                redraw(model.getLevel().getPlayingField()[row][col]);
+            }
+        }
+    }
+
+    private void checkWinConditions() {
+        if (model.checkWinConditions()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Proficiat! Je hebt gewonnen", ButtonType.YES);
+            alert.showAndWait();
+            exit();
+        }
+    }
+
+    private void exit() {
+        ((Stage) view.getCanvas().getScene().getWindow()).close();
+    }
+
+    private class MouseClickHandler implements EventHandler<MouseEvent> {
+
+        @Override
+        public void handle(MouseEvent event) {
+            // convert mouse position to grid column/row
+            int column = translateXToColumn(event.getX());
+            int row = translateYToRow(event.getY());
+            Space selected = model.getLevel().getSelectedSpace();
+            if (selected != null) {
+                redraw(selected);
+                model.getLevel().createPipe(selected, column, row);
+            }
+            model.getLevel().setSelected(column, row);
+            //view.drawSelection(translateColumnToX(column), translateRowToY(row));
+            refreshView();
+            checkWinConditions();
+        }
+    }
 }

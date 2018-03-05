@@ -5,6 +5,7 @@ import freeFlow.model.Player;
 import freeFlow.view.GraphicGamePresenter;
 import freeFlow.view.GraphicGameView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -27,7 +28,9 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Free Flow");
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
         primaryStage.show();
+
     }
 
 }
