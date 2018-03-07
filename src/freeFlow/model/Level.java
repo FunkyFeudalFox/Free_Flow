@@ -71,6 +71,10 @@ public class Level {
         return playingField;
     }
 
+    public List<Score> getHighScores() {
+        return highScores;
+    }
+
     public Space getDrawable(int x, int y) {
         return playingField[x][y];
     }

@@ -17,6 +17,10 @@ public class Score implements Comparable <Score>{
 
     private Player player;
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public Score(Player player) {
         this.player = player;
         this.score = 0;
