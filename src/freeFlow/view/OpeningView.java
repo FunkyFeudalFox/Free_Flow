@@ -1,14 +1,18 @@
 package freeFlow.view;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 /**
  * @author Arjan Tammer
  * @version 1.0 3/7/2018 13:37
  */
-public class OpeningView extends BorderPane {
+public class OpeningView extends GridPane {
 
     private Label message;
     private Button btnNewPlayer;
@@ -28,9 +32,12 @@ public class OpeningView extends BorderPane {
     }
 
     public void layoutNodes(){
-        this.setTop(message);
-        this.setCenter(btnNewPlayer);
-        this.setBottom(btnLogin);
+        this.add(message, 0,0,3,1);
+        this.setHalignment(message, HPos.CENTER);
+        this.add(btnNewPlayer,0,1);
+        this.add(btnLogin,3,1);
+        this.setPadding(new Insets(15));
+        this.setVgap(10);
     }
 
 }

@@ -1,8 +1,10 @@
 package freeFlow.MainMultipleScreens;
 
+import com.sun.glass.ui.View;
 import freeFlow.model.Game;
 import freeFlow.model.Level;
 import freeFlow.model.Player;
+import freeFlow.view.LoginView;
 import freeFlow.view.OpeningView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,7 +28,7 @@ public class Main extends Application {
 
         Game model = new Game(1, player, level);
 
-        OpeningView view = new OpeningView();
+        LoginView view = new LoginView();
 
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Welcome to Free Flow");

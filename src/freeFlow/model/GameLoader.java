@@ -1,8 +1,16 @@
 package freeFlow.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 /**
  * @author Arjan Tammer
@@ -18,6 +26,30 @@ public class GameLoader {
     public GameLoader (Game model) {
         this.model = model;
     }
+
+    public static ObservableList<String> txtFile2LoginList() throws IOException{
+        ObservableList<String> playerList = FXCollections.observableArrayList();
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "playerFile.txt"))) {
+            while ((line = br.readLine()) != null){
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String unused = tokenizer.nextToken();
+                String username = tokenizer.nextToken();
+                unused = tokenizer.nextToken();
+                String unusedNumber = tokenizer.nextToken();
+                playerList.add(username);
+            }
+            return playerList;
+        }
+        catch (NoSuchElementException | NumberFormatException e1) {
+            throw new IOException("Read error in line: " + line, e1);
+        } catch (IOException e2) {
+            throw new IOException("Source file " + line + " can't be opened", e2);
+        }
+    }
+
+
 
 
 
