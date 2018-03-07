@@ -66,7 +66,15 @@ public class LoginView extends GridPane {
         this.setGridLinesVisible(false);
     }
 
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
 
+    public ComboBox getCbUsername() {
+        return cbUsername;
+    }
 
-
+    public TextField getTfPassword() {
+        return tfPassword;
+    }
 }

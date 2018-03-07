@@ -49,6 +49,29 @@ public class GameLoader {
         }
     }
 
+    public static String lookUpPasswordForUsername(String username) throws IOException{
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "playerFile.txt"))) {
+            while ((line = br.readLine()) != null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String unused = tokenizer.nextToken();
+                String usernameFromTxtFile = tokenizer.nextToken();
+                String password = tokenizer.nextToken();
+                unused = tokenizer.nextToken();
+                if (username == usernameFromTxtFile) {
+                    return password;
+                }
+            }
+            return "0";
+        }
+        catch (NoSuchElementException | NumberFormatException e1) {
+            throw new IOException("Read error " + e1);
+        } catch (IOException e2) {
+            throw new IOException("Source file can't be opened", e2);
+        }
+    }
+
 
 
 
