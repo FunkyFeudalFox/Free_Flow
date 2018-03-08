@@ -72,6 +72,26 @@ public class GameLoader {
         }
     }
 
+    public static String showHighScores() throws IOException{
+        StringBuilder sb = new StringBuilder();
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "highScoresFile.txt"))) {
+            while ((line = br.readLine()) != null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String username = tokenizer.nextToken();
+                String score = tokenizer.nextToken();
+                sb.append(String.format("%s %s\n", username, score));
+            }
+            return sb.toString();
+        }
+        catch (NoSuchElementException | NumberFormatException e1) {
+            throw new IOException("Read error " + e1);
+        } catch (IOException e2) {
+            throw new IOException("Source file can't be opened", e2);
+        }
+    }
+
 
 
 
