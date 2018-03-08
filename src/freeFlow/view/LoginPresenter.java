@@ -1,7 +1,10 @@
 package freeFlow.view;
 
+import freeFlow.MainMultipleScreens.Main;
 import freeFlow.model.GameLoader;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -35,11 +38,12 @@ public class LoginPresenter {
                     //
                     //open next screen. Screen where you can start a new game or load a saved game
                     //
+                    //StartOrLoadView startOrLoadView = new StartOrLoadView();
+                    //Main.primaryStage.setScene(new Scene (startOrLoadView);
                 }
                 else{
-                    //
-                    //display message it is the wrong password
-                    //
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong password. Try again", ButtonType.OK);
+                    alert.showAndWait();
                 }
             }
             catch (NoSuchElementException | NumberFormatException e1) {

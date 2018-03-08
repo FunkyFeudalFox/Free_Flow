@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * @author Arjan Tammer
@@ -50,16 +51,31 @@ public class GameSaver {
     }
 
 
-    public void highScores2TxtFile(List <Score> highScores) throws IOException {
+    public void highScore2TxtFile(Score highscore) throws IOException {
             createDirectoryAndFile(highScoresFile);
-            try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src"
-                    + File.separator + "resources" + File.separator + "highScoresFile.txt")))) {
-                for (Score score : model.getLevel().getHighScores())
-                pw.printf("%s#%d%n", score.getPlayer().getUsername(), score.getScore());
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "highScoresFile.txt"))) {
+            while ((line = br.readLine()) != null){
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String username = tokenizer.nextToken();
+                String score = tokenizer.nextToken();
+                if ((highscore.getPlayer().getUsername() != username) ||
+                        (highscore.getPlayer().getUsername() == username && Integer.toString(highscore.getScore()) !=  score) ){
+                    try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src"
+                            + File.separator + "resources" + File.separator + "highScoresFile.txt")))) {
+                        pw.printf("%s#%d%n", highscore.getPlayer().getUsername(), highscore.getScore());
+                    }
+                    catch (IOException e) {
+                        throw new IOException("Unable to write to file " + highScoresFile, e);
+                    }
+                }
             }
-            catch (IOException e) {
-                throw new IOException("Unable to write to file " + highScoresFile, e);
-            }
+        }
+        catch (IOException e2){
+            throw new IOException("Unable to write to file " + highScoresFile, e2);
+        }
+
     }
 
 
