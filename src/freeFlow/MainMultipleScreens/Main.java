@@ -2,6 +2,7 @@ package freeFlow.MainMultipleScreens;
 
 import com.sun.glass.ui.View;
 import freeFlow.model.Game;
+import freeFlow.model.GameLoader;
 import freeFlow.model.Level;
 import freeFlow.model.Player;
 import freeFlow.view.*;
@@ -25,10 +26,10 @@ public class Main extends Application {
         Player player = new Player("Johannes");
         Level level = new Level(5);
 
-        Game model = new Game(1, player, level);
+        GameLoader model = new GameLoader(new Game(0, player,level));
 
-        StartOrLoadGameView view = new StartOrLoadGameView();
-
+        OpeningView view = new OpeningView();
+        OpeningPresenter presenter = new OpeningPresenter(model, view);
         primaryStage.setScene(new Scene(view));
         primaryStage.setTitle("Welcome to Free Flow");
 
