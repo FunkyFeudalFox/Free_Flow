@@ -40,4 +40,11 @@ public class OpeningView extends GridPane {
         this.setVgap(10);
     }
 
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
+
+    public Button getBtnNewPlayer() {
+        return btnNewPlayer;
+    }
 }

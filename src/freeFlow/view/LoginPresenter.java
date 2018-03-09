@@ -3,9 +3,12 @@ package freeFlow.view;
 import freeFlow.MainMultipleScreens.Main;
 import freeFlow.model.GameLoader;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -40,6 +43,16 @@ public class LoginPresenter {
                     //
                     //StartOrLoadView startOrLoadView = new StartOrLoadView();
                     //Main.primaryStage.setScene(new Scene (startOrLoadView);
+
+                    StartOrLoadGameView startOrLoadGameView = new StartOrLoadGameView();
+                    new StartOrLoadGamePresenter(model, startOrLoadGameView);
+                    Stage startOrLoadStage = new Stage();
+                    startOrLoadStage.initOwner(view.getScene().getWindow());
+                    startOrLoadStage.initModality(Modality.APPLICATION_MODAL);
+                    startOrLoadStage.setScene(new Scene(startOrLoadGameView));
+                    startOrLoadStage.setX(view.getScene().getWindow().getX());
+                    startOrLoadStage.setY(view.getScene().getWindow().getY());
+                    startOrLoadStage.showAndWait();
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong password. Try again", ButtonType.OK);
