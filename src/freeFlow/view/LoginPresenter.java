@@ -51,6 +51,7 @@ public class LoginPresenter {
                     startOrLoadStage.setScene(new Scene(startOrLoadGameView));
                     startOrLoadStage.setX(view.getScene().getWindow().getX());
                     startOrLoadStage.setY(view.getScene().getWindow().getY());
+                    startOrLoadStage.setTitle("Start a game or load a saved game");
                     startOrLoadStage.showAndWait();
                 }
                 else{

@@ -35,6 +35,7 @@ public class OpeningPresenter {
                 loginStage.setScene(new Scene(loginView));
                 loginStage.setX(view.getScene().getWindow().getX());
                 loginStage.setY(view.getScene().getWindow().getY());
+                loginStage.setTitle("Login");
                 loginStage.showAndWait();
             }
         });
@@ -50,6 +51,7 @@ public class OpeningPresenter {
                 createPlayerStage.setScene(new Scene(createPlayerView));
                 createPlayerStage.setX(view.getScene().getWindow().getX());
                 createPlayerStage.setY(view.getScene().getWindow().getY());
+                createPlayerStage.setTitle("Create new Player account");
                 createPlayerStage.showAndWait();
             }
         });
