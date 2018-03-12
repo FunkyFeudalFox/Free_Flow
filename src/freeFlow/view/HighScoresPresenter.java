@@ -1,6 +1,8 @@
 package freeFlow.view;
 
-import freeFlow.model.GameLoader;
+import freeFlow.model.GameSaver;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  * @author Arjan Tammer
@@ -8,16 +10,27 @@ import freeFlow.model.GameLoader;
  */
 public class HighScoresPresenter {
 
-    private GameLoader model;
+    private GameSaver model;
     private HighScoresView view;
 
-    public HighScoresPresenter(GameLoader model, HighScoresView view) {
+    public HighScoresPresenter(GameSaver model, HighScoresView view) {
         this.model = model;
         this.view = view;
         start();
+        addEventHandlers();
     }
 
     private void start(){
 
+    }
+
+    private void addEventHandlers(){
+        view.getBtnClose().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //close HighScoresView window
+
+            }
+        });
     }
 }

@@ -1,7 +1,6 @@
 package freeFlow.view;
 
-import freeFlow.model.GameLoader;
-import javafx.scene.control.Label;
+import freeFlow.model.GameSaver;
 
 /**
  * @author Arjan Tammer
@@ -9,11 +8,11 @@ import javafx.scene.control.Label;
  */
 public class StartOrLoadGamePresenter {
 
-    private GameLoader model;
+    private GameSaver model;
     private StartOrLoadGameView view;
 
 
-    public StartOrLoadGamePresenter(GameLoader model, StartOrLoadGameView view) {
+    public StartOrLoadGamePresenter(GameSaver model, StartOrLoadGameView view) {
         this.model = model;
         this.view = view;
     }

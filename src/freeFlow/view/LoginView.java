@@ -1,6 +1,5 @@
 package freeFlow.view;
 
-import freeFlow.model.GameLoader;
 import freeFlow.model.GameSaver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +37,9 @@ public class LoginView extends GridPane {
         lblPassword = new Label("Password: ");
         try {
             cbUsername = new ComboBox<>();
-            ObservableList<String> names = FXCollections.observableArrayList(GameLoader.txtFile2LoginList());
+            ObservableList<String> names = FXCollections.observableArrayList(GameSaver.txtFile2LoginList());
+            this.cbUsername.setItems(names);
+            this.cbUsername.getSelectionModel().select(0);
         }catch (NoSuchElementException | NumberFormatException e1) {
             System.out.println(e1.getCause());
             System.out.println(e1.getMessage());

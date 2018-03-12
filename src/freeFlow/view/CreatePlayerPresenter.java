@@ -49,7 +49,8 @@ public class CreatePlayerPresenter {
                 }
                 Player newPlayer = new Player(view.getTfName().getText(), view.getTfUsername().getText(), view.getTfPassword().getText());
                 try {
-                    model.player2TxtFile(newPlayer);
+                    model.getPlayerList().add(newPlayer);
+                    model.playerList2TxtFile(model.getPlayerList());
                 }catch (IOException e){
                     System.out.println(e.getMessage());
                     System.out.println(e.getStackTrace());

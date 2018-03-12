@@ -26,6 +26,11 @@ public class Score implements Comparable <Score>{
         this.score = 0;
     }
 
+    public Score(Player player, int score){
+        this.player = player;
+        this.score = score;
+    }
+
     @Override
     public int compareTo(Score otherScore) {
         int scoreVerschil = this.getScore() - otherScore.getScore();

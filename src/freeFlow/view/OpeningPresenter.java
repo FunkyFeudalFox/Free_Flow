@@ -1,6 +1,6 @@
 package freeFlow.view;
 
-import freeFlow.model.GameLoader;
+import freeFlow.model.GameSaver;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,11 +13,11 @@ import javafx.stage.Stage;
  */
 public class OpeningPresenter {
 
-    private GameLoader model;
+    private GameSaver model;
     private OpeningView view;
 
 
-    public OpeningPresenter(GameLoader model, OpeningView view) {
+    public OpeningPresenter(GameSaver model, OpeningView view) {
         this.model = model;
         this.view = view;
         addEventHandlers();
@@ -41,8 +41,18 @@ public class OpeningPresenter {
         view.getBtnNewPlayer().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                CreatePlayerView createPlayerView = new CreatePlayerView();
+                GameSaver gameSaverModel = new GameSaver();
+                new CreatePlayerPresenter(gameSaverModel, createPlayerView);
+                Stage createPlayerStage = new Stage();
+                createPlayerStage.initOwner(view.getScene().getWindow());
+                createPlayerStage.initModality(Modality.APPLICATION_MODAL);
+                createPlayerStage.setScene(new Scene(createPlayerView));
+                createPlayerStage.setX(view.getScene().getWindow().getX());
+                createPlayerStage.setY(view.getScene().getWindow().getY());
+                createPlayerStage.showAndWait();
             }
         });
+
     }
 }

@@ -46,4 +46,11 @@ public class Player {
         this.password = password;
         this.highscore = new Score(this);
     }
+
+    public Player(String name, String username, String password, int score){
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.highscore = new Score(this,score);
+    }
 }

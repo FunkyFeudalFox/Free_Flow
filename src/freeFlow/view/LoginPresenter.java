@@ -1,7 +1,6 @@
 package freeFlow.view;
 
-import freeFlow.MainMultipleScreens.Main;
-import freeFlow.model.GameLoader;
+import freeFlow.model.GameSaver;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,10 +18,10 @@ import java.util.NoSuchElementException;
  */
 public class LoginPresenter {
 
-    private GameLoader model;
+    private GameSaver model;
     private LoginView view;
 
-    public LoginPresenter(GameLoader model, LoginView view){
+    public LoginPresenter(GameSaver model, LoginView view){
         this.model = model;
         this.view = view;
 

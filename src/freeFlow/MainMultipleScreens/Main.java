@@ -1,10 +1,7 @@
 package freeFlow.MainMultipleScreens;
 
 import com.sun.glass.ui.View;
-import freeFlow.model.Game;
-import freeFlow.model.GameLoader;
-import freeFlow.model.Level;
-import freeFlow.model.Player;
+import freeFlow.model.*;
 import freeFlow.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,7 +23,7 @@ public class Main extends Application {
         Player player = new Player("Johannes");
         Level level = new Level(5);
 
-        GameLoader model = new GameLoader(new Game(0, player,level));
+        GameSaver model = new GameSaver();
 
         OpeningView view = new OpeningView();
         OpeningPresenter presenter = new OpeningPresenter(model, view);
