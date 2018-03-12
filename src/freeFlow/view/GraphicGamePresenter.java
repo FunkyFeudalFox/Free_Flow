@@ -45,9 +45,7 @@ public class GraphicGamePresenter {
     private void start(){
         model.setUserName("Johannes");
         model.startGame();
-
         refreshView();
-
     }
 
     public Game getModel() {
@@ -93,7 +91,7 @@ public class GraphicGamePresenter {
         } else if (space instanceof Dot) {
             view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
         } else if (space instanceof PipePart) {
-            view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
+            view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getSelected());
         }
     }
 
@@ -108,13 +106,14 @@ public class GraphicGamePresenter {
 
     private void checkWinConditions() {
         if (model.checkWinConditions()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Proficiat! Je hebt gewonnen", ButtonType.YES);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Proficiat! Je hebt gewonnen", ButtonType.OK);
             alert.showAndWait();
             exit();
         }
     }
 
     private void exit() {
+        model.setExit(true);
         ((Stage) view.getCanvas().getScene().getWindow()).close();
     }
 

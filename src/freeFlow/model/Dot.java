@@ -6,7 +6,7 @@ package freeFlow.model;
  */
 public class Dot extends Space {
 
-    private boolean isLocked;
+    Space connection;
 
     Dot(int x, int y, Colour colour) {
         this.x = x;
@@ -23,12 +23,9 @@ public class Dot extends Space {
         return !isLocked && this.colour == colour;
     }
 
-    public void setLocked() {
+    @Override
+    public void setLocked(Space connector) {
         this.isLocked = true;
+        this.connection = connector;
     }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
 }

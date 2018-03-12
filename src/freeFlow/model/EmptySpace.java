@@ -35,4 +35,9 @@ public class EmptySpace extends Space {
         return true;
     }
 
+    @Override
+    public void setLocked(Space connector) {
+        // no implementation
+    }
+
 }
