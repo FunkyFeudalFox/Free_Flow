@@ -149,7 +149,7 @@ public class GameSaver {
                 String usernameFromTxtFile = tokenizer.nextToken();
                 String password = tokenizer.nextToken();
                 unused = tokenizer.nextToken();
-                if (username == usernameFromTxtFile) {
+                if (username.equals(usernameFromTxtFile)) {
                     return password;
                 }
             }

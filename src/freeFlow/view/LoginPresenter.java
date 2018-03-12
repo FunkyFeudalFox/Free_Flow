@@ -36,7 +36,7 @@ public class LoginPresenter {
             String username = view.getCbUsername().getValue().toString();
             String password = view.getTfPassword().getText();
             try{
-                if (password == model.lookUpPasswordForUsername(username)){
+                if (password.equals(model.lookUpPasswordForUsername(username)) ){
                     //
                     //open next screen. Screen where you can start a new game or load a saved game
                     //
