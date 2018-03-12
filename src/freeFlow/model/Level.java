@@ -54,6 +54,25 @@ public class Level {
 
     public void addPipePart(PipePart pipePart){
         this.playingField[pipePart.getX()][pipePart.getY()] = pipePart;
+        // scan surroundings to determine orientation and connections
+        //connectPipe(pipePart.getX(), pipePart.getY(), pipePart.getColour());
+    }
+
+    /*    private void connectPipe(int originColumn, int originRow, Colour originColour) {
+            for (int row = -1; row <= 1; row++) {
+                for (int column = -1; column <= 1; column++) {
+                    Space space = playingField[originColumn + column][originRow + row];
+                    if (space.getColour().equals(originColour))
+                        //pipe.
+                }
+            }
+        }*/
+    private void connectPipeParts(Space fromSpace, Space toSpace) {
+        fromSpace.setLocked(toSpace);
+        if (toSpace instanceof PipePart)
+            ((PipePart) toSpace).setConnection1(fromSpace);
+        else
+            ((Dot) toSpace).setLocked(fromSpace);
     }
 
     public void setSelected(int x, int y) {
@@ -80,6 +99,9 @@ public class Level {
     }
 
     public void createPipe(Space fromSpace, int toX, int toY) {
+        if (fromSpace instanceof EmptySpace)
+            // can't create pipe from empty space
+            return;
         if (fromSpace.getX() != toX
                 && fromSpace.getY() != toY) {
             // can only create straight line
@@ -99,16 +121,35 @@ public class Level {
         // validation OK => create pipe
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
-                if (playingField[x][y] instanceof EmptySpace)
-                    addPipePart(new PipePart(x, y, fromSpace.getColour()));
+                if (playingField[x][y] instanceof EmptySpace) {
+                    Space toSpace = new PipePart(x, y, fromSpace.getColour());
+                    addPipePart((PipePart) toSpace);
+                    connectPipeParts(fromSpace, toSpace);
+                    fromSpace = toSpace;
+                }
             }
         }
-        // lock dots
-        if (fromSpace instanceof Dot)
-            ((Dot) fromSpace).setLocked();
-        // lock pipe parts TODO
-        if (playingField[toX][toY] instanceof Dot)
-            ((Dot) playingField[toX][toY]).setLocked();
+        // scan neighbors of last space for possible connections
+        if (fromSpace.isLocked)
+            return;     // unless target is already locked
+        for (int mod = -1; mod <= 1; mod += 2) {
+            if (toX + mod >= 0 && toX + mod < size &&
+                    scanSpace(fromSpace, playingField[toX + mod][toY]))
+                break;
+            if (toY + mod >= 0 && toY + mod < size &&
+                    scanSpace(fromSpace, playingField[toX][toY + mod]))
+                break;
+        }
+    }
+
+    private boolean scanSpace(Space origin, Space scan) {
+        if (scan.getColour() == origin.getColour() &&
+                !scan.isLocked() &&
+                scan != origin) {
+            connectPipeParts(origin, scan);
+            return true;
+        }
+        return false;
     }
 
 }

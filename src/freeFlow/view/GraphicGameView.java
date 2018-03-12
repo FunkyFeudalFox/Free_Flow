@@ -1,6 +1,7 @@
 package freeFlow.view;
 
 import freeFlow.model.Colour;
+import freeFlow.model.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
@@ -90,13 +91,69 @@ public class GraphicGameView extends BorderPane {
         gc.fillRect(x + 1, y + 1, spaceWidth - 2, spaceHeight - 2);
     }
 
-    protected void drawPipePart(int x, int y, Colour colour, boolean isSelected) {
+    protected void drawPipePart(int x, int y, Colour colour, Orientation orientation, boolean isSelected) {
         drawSpace(x, y, isSelected);    // redraw background
-        x += PIPE_GRID_MARGIN;
+        switch (orientation) {
+            case HORIZONTAL:
+                drawHorizontalPipePart(x, y, colour);
+                break;
+            case VERTICAL:
+                drawVerticalPipePart(x, y, colour);
+                break;
+            case HORIZONTAL_DOWN:
+                drawHorizontalDownPipePart(x, y, colour);
+                break;
+            case HORIZONTAL_UP:
+                drawHorizontalUpPipePart(x, y, colour);
+                break;
+            case VERTICAL_LEFT:
+                drawVerticalLeftPipePart(x, y, colour);
+                break;
+            case VERTICAL_RIGHT:
+                drawVerticalRightPipePart(x, y, colour);
+                break;
 
-        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
-        gc.setFill(colour.getColour());
-        gc.fillRect(x, y, spaceWidth - PIPE_GRID_MARGIN, spaceHeight);
+        }
+
     }
 
+    private void drawHorizontalPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x, y + PIPE_GRID_MARGIN, spaceWidth, spaceHeight - PIPE_GRID_MARGIN * 2);
+    }
+
+    private void drawVerticalPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x + PIPE_GRID_MARGIN, y, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight);
+    }
+
+    private void drawHorizontalDownPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
+        gc.fillRect(x + PIPE_GRID_MARGIN, y + spaceHeight / 2, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight / 2);
+    }
+
+    private void drawHorizontalUpPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
+        gc.fillRect(x + PIPE_GRID_MARGIN, y, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight / 2);
+    }
+
+    private void drawVerticalLeftPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x + PIPE_GRID_MARGIN, y, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight / 2);
+        gc.fillRect(x + spaceWidth / 2, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
+    }
+
+    private void drawVerticalRightPipePart(int x, int y, Colour colour) {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.setFill(colour.getColour());
+        gc.fillRect(x + PIPE_GRID_MARGIN, y + spaceHeight / 2, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight / 2);
+        gc.fillRect(x + spaceWidth / 2, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
+    }
 }

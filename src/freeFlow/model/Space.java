@@ -11,6 +11,7 @@ public abstract class Space {
     Colour colour;
 
     boolean isSelected;
+    boolean isLocked;
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
@@ -36,4 +37,9 @@ public abstract class Space {
 
     abstract boolean isCreatePipeValid(Colour colour);
 
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    abstract public void setLocked(Space connector);
 }
