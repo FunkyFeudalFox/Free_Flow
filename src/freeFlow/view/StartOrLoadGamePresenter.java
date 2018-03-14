@@ -2,9 +2,13 @@ package freeFlow.view;
 
 import freeFlow.model.Game;
 import freeFlow.model.GameSaver;
+import freeFlow.model.Level;
 import freeFlow.model.Player;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 /**
@@ -27,26 +31,23 @@ public class StartOrLoadGamePresenter {
         addEventHandlers();
     }
 
-    /*
-    public void addEventHandlers(){
-        view.getBtnStartEasy().setOnAction(EventHandler <ActionEvent> (){
-            @Override
-            public void handle(ActionEvent event){
-
-            }
-
-
-        });
-    }
-    */
 
     public void addEventHandlers() {
         view.getBtnStartEasy().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 GraphicGameView graphicGameView = new GraphicGameView(5);
-                //Game gameModel = new Game(0, )
-                //new GraphicGamePresenter()
+                Level level = new Level(5);
+                Game gameModel = new Game(0, player, level );
+                GraphicGamePresenter graphicGamePresenter = new GraphicGamePresenter(gameModel, graphicGameView);
+                Stage graphicGameStage = new Stage();
+                graphicGameStage.initOwner(view.getScene().getWindow());
+                graphicGameStage.initModality(Modality.APPLICATION_MODAL);
+                graphicGameStage.setScene(new Scene(graphicGameView));
+                graphicGameStage.setX(view.getScene().getWindow().getX());
+                graphicGameStage.setY(view.getScene().getWindow().getY());
+                graphicGameStage.setTitle("Start a game or load a saved game");
+                graphicGameStage.showAndWait();
 
             }
         });
