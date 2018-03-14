@@ -4,9 +4,12 @@ import freeFlow.model.GameSaver;
 import freeFlow.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,6 +21,7 @@ public class CreatePlayerPresenter {
 
     private GameSaver model;
     private CreatePlayerView view;
+    private Player player;
 
     public CreatePlayerPresenter(GameSaver model, CreatePlayerView view) {
         this.model = model;
@@ -55,6 +59,20 @@ public class CreatePlayerPresenter {
                     System.out.println(e.getMessage());
                     System.out.println(e.getStackTrace());
                 }
+                Alert createdNotification = new Alert(Alert.AlertType.CONFIRMATION, "new Player account created", ButtonType.OK);
+                createdNotification.showAndWait();
+                player = newPlayer;
+
+                StartOrLoadGameView startOrLoadGameView = new StartOrLoadGameView();
+                new StartOrLoadGamePresenter(model, startOrLoadGameView, player);
+                Stage startOrLoadStage = new Stage();
+                startOrLoadStage.initOwner(view.getScene().getWindow());
+                startOrLoadStage.initModality(Modality.APPLICATION_MODAL);
+                startOrLoadStage.setScene(new Scene(startOrLoadGameView));
+                startOrLoadStage.setX(view.getScene().getWindow().getX());
+                startOrLoadStage.setY(view.getScene().getWindow().getY());
+                startOrLoadStage.setTitle("Start a game or load a saved game");
+                startOrLoadStage.showAndWait();
             }
         });
     }

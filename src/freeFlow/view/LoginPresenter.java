@@ -1,6 +1,7 @@
 package freeFlow.view;
 
 import freeFlow.model.GameSaver;
+import freeFlow.model.Player;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,6 +21,7 @@ public class LoginPresenter {
 
     private GameSaver model;
     private LoginView view;
+    private Player player;
 
     public LoginPresenter(GameSaver model, LoginView view){
         this.model = model;
@@ -37,14 +39,12 @@ public class LoginPresenter {
             String password = view.getTfPassword().getText();
             try{
                 if (password.equals(model.lookUpPasswordForUsername(username)) ){
-                    //
-                    //open next screen. Screen where you can start a new game or load a saved game
-                    //
-                    //StartOrLoadView startOrLoadView = new StartOrLoadView();
-                    //Main.primaryStage.setScene(new Scene (startOrLoadView);
+                    //assign player
+                    player = model.assignPlayer(username);
 
+                    //open next screen.
                     StartOrLoadGameView startOrLoadGameView = new StartOrLoadGameView();
-                    new StartOrLoadGamePresenter(model, startOrLoadGameView);
+                    new StartOrLoadGamePresenter(model, startOrLoadGameView, player);
                     Stage startOrLoadStage = new Stage();
                     startOrLoadStage.initOwner(view.getScene().getWindow());
                     startOrLoadStage.initModality(Modality.APPLICATION_MODAL);
@@ -53,6 +53,9 @@ public class LoginPresenter {
                     startOrLoadStage.setY(view.getScene().getWindow().getY());
                     startOrLoadStage.setTitle("Start a game or load a saved game");
                     startOrLoadStage.showAndWait();
+                    //
+                    //openingView.getScene.hide();
+                    //
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong password. Try again", ButtonType.OK);

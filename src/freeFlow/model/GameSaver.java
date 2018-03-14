@@ -24,6 +24,7 @@ public class GameSaver {
     Path resources = Paths.get("src" + File.separator + "resources");
     Path playerFile = Paths.get("src" + File.separator + "resources" + File.separator + "playerFile.txt");
     Path highScoresFile = Paths.get("src" + File.separator + "resources" + File.separator + "highScoresFile.txt");
+    Path gameFile = Paths.get("src" + File.separator + "resources" + File.separator + "gameFile.csv");
 
     List<Player> playerList;
 
@@ -51,7 +52,7 @@ public class GameSaver {
                 }
             }
             catch (IOException e){
-                throw new IOException("Unable to create file or directory " + playerFile, e);
+                throw new IOException("Unable to create file or directory " + path, e);
             }
     }
 
@@ -162,6 +163,25 @@ public class GameSaver {
         }
     }
 
+    public Player assignPlayer(String username) throws IOException{
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "playerFile.txt"))) {
+            while ((line = br.readLine()) != null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String name = tokenizer.nextToken();
+                String usernameFromTxtFile = tokenizer.nextToken();
+                String password = tokenizer.nextToken();
+                int score = Integer.parseInt(tokenizer.nextToken());
+                if (username.equals(usernameFromTxtFile)) {
+                    Player player = new Player(name, username, password, score);
+                    return player;
+                }
+            }
+        }
+        return new Player("0", "0", "0", 0);
+    }
+
     public static String showHighScores() throws IOException{
         StringBuilder sb = new StringBuilder();
         String line = "";
@@ -180,6 +200,29 @@ public class GameSaver {
         } catch (IOException e2) {
             throw new IOException("Source file can't be opened", e2);
         }
+    }
+
+    public void saveGame2CSV() throws IOException {
+        createDirectoryAndFile(gameFile);
+        String line = "";
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter("src"
+                + File.separator + "resources" + File.separator + "gameFile.csv"))){
+                //
+                //
+                //fileWriter.append()
+                //
+
+            StringTokenizer tokenizer = new StringTokenizer(line, "#");
+            //
+            //for-loop om Level.playingField op te slaan
+            //
+
+        }
+
+    }
+
+    public void loadGame() throws IOException {
+
     }
 
 }

@@ -92,6 +92,10 @@ public class GraphicGamePresenter {
             view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
         } else if (space instanceof PipePart) {
             view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getSelected());
+            //Level.moveNumber++
+            //
+            //
+            model.setMoveNumber(model.getMoveNumber() + 1);
         }
     }
 

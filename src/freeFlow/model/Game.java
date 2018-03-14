@@ -35,6 +35,14 @@ public class Game {
     //private GameSaver gameSaver;
 
 
+    public int getMoveNumber() {
+        return moveNumber;
+    }
+
+    public void setMoveNumber(int moveNumber) {
+        this.moveNumber = moveNumber;
+    }
+
     public Game(int moveNumber, Player player, Level level) {
         this.moveNumber = moveNumber;
         this.player = player;

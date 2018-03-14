@@ -45,4 +45,19 @@ public class StartOrLoadGameView extends GridPane {
         this.setHgap(10);
     }
 
+    public Button getBtnStartEasy() {
+        return btnStartEasy;
+    }
+
+    public Button getBtnStartMedium() {
+        return btnStartMedium;
+    }
+
+    public Button getBtnStartHard() {
+        return btnStartHard;
+    }
+
+    public Button getBtnLoad() {
+        return btnLoad;
+    }
 }

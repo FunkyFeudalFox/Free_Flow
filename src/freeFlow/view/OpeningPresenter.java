@@ -1,5 +1,6 @@
 package freeFlow.view;
 
+import freeFlow.MainMultipleScreens.Main;
 import freeFlow.model.GameSaver;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,6 +38,7 @@ public class OpeningPresenter {
                 loginStage.setY(view.getScene().getWindow().getY());
                 loginStage.setTitle("Login");
                 loginStage.showAndWait();
+
             }
         });
         view.getBtnNewPlayer().setOnAction(new EventHandler<ActionEvent>() {
