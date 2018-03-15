@@ -3,8 +3,22 @@ package freeFlow.model;
 public class PipePart extends Space {
 
     private Orientation orientation;
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
     private Space connection1;
+
+    public Space getConnection1() {
+        return connection1;
+    }
+
     private Space connection2;
+
+    public Space getConnection2() {
+        return connection2;
+    }
 
     public PipePart(int x, int y, Colour colour) {
         this.x = x;
@@ -22,9 +36,7 @@ public class PipePart extends Space {
         return this.colour == colour;
     }
 
-    public Orientation getOrientation() {
-        return orientation;
-    }
+
 
     private void setOrientation() {
         orientation = (x == connection1.getX() ? Orientation.VERTICAL : Orientation.HORIZONTAL);

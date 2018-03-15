@@ -33,9 +33,25 @@ public class Pipe {
 
     private int x, y;
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     private Dot dot1;
 
+    public Dot getDot1() {
+        return dot1;
+    }
+
     private Dot dot2;
+
+    public Dot getDot2() {
+        return dot2;
+    }
 
     public void setDot2(Dot dot2) {
         this.dot2 = dot2;

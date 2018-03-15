@@ -8,13 +8,45 @@ public class Game {
 
     private int moveNumber;
 
+    public int getMoveNumber() {
+        return moveNumber;
+    }
+
+    public void setMoveNumber(int moveNumber) {
+        this.moveNumber = moveNumber;
+    }
+
     private Player player;
+
+    public void setUserName(String name) {
+        player.setName(name);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 
     private Level level;
 
+    public Level getLevel() {
+        return level;
+    }
+
     private boolean isSolved;
 
+    public boolean getIsSolved(){ return isSolved; }
+
+
+
     private boolean exit;
+
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
+    public boolean getExit() {
+        return exit;
+    }
 
     //Hier moet t.z.t. eigenlijk iets zoals this.level.getSize();, maar voor nu
     //de columns hardcoded omdat het programma anders een null-pointer exception
@@ -35,13 +67,7 @@ public class Game {
     //private GameSaver gameSaver;
 
 
-    public int getMoveNumber() {
-        return moveNumber;
-    }
 
-    public void setMoveNumber(int moveNumber) {
-        this.moveNumber = moveNumber;
-    }
 
     public Game(int moveNumber, Player player, Level level) {
         this.moveNumber = moveNumber;
@@ -92,19 +118,8 @@ public class Game {
         return true;
     }
 
-    public Level getLevel() {
-        return level;
-    }
 
-    public void setUserName(String name) {
-        player.setName(name);
-    }
 
-    public void setExit(boolean exit) {
-        this.exit = exit;
-    }
 
-    public boolean getExit() {
-        return exit;
-    }
+
 }

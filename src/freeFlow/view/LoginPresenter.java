@@ -44,7 +44,7 @@ public class LoginPresenter {
 
                     //open next screen.
                     StartOrLoadGameView startOrLoadGameView = new StartOrLoadGameView();
-                    new StartOrLoadGamePresenter(model, startOrLoadGameView, player);
+                    StartOrLoadGamePresenter startOrLoadGamePresenter = new StartOrLoadGamePresenter(model, startOrLoadGameView, player);
                     Stage startOrLoadStage = new Stage();
                     startOrLoadStage.initOwner(view.getScene().getWindow());
                     startOrLoadStage.initModality(Modality.APPLICATION_MODAL);

@@ -1,6 +1,7 @@
 package freeFlow.model;
 
 import com.sun.media.jfxmedia.events.PlayerStateEvent;
+import freeFlow.view.StartOrLoadGamePresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,8 +29,11 @@ public class GameSaver {
 
     List<Player> playerList;
 
+    private Game gameModel;
 
-
+    public void setGameModel(Game gameModel) {
+        this.gameModel = gameModel;
+    }
 
     public GameSaver() {
         try{
@@ -202,14 +206,76 @@ public class GameSaver {
         }
     }
 
-    public void saveGame2CSV() throws IOException {
+    public void saveEasyGame2CSV() throws IOException {
         createDirectoryAndFile(gameFile);
         String line = "";
         try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter("src"
                 + File.separator + "resources" + File.separator + "gameFile.csv"))){
                 //
                 //
-                //fileWriter.append()
+                fileWriter.append(Integer.toString(gameModel.getMoveNumber()));
+                fileWriter.append("#");
+                fileWriter.append(Boolean.toString(gameModel.getIsSolved()));
+                fileWriter.append("#");
+                fileWriter.append(Boolean.toString(gameModel.getExit()));
+                fileWriter.append("#");
+                fileWriter.append(Integer.toString(gameModel.getCOLUMNS()));
+                fileWriter.append("#");
+                fileWriter.append(Integer.toString(gameModel.getROWS()));
+                fileWriter.append("#");
+
+                fileWriter.append(gameModel.getPlayer().getName());
+                fileWriter.append("#");
+                fileWriter.append(gameModel.getPlayer().getUsername());
+                fileWriter.append("#");
+                fileWriter.append(gameModel.getPlayer().getPassword());
+                fileWriter.append("#");
+                fileWriter.append(Integer.toString(gameModel.getPlayer().getHighscore().getScore()));
+                fileWriter.append("#");
+
+                fileWriter.append(Integer.toString(gameModel.getLevel().getSize()));
+                fileWriter.append("#");
+                fileWriter.append(Integer.toString(gameModel.getLevel().getHighScoresSize()));
+                fileWriter.append("#");
+                for (Score score : gameModel.getLevel().getHighScores()){
+                    fileWriter.append(score.getPlayer().getName());
+                    fileWriter.append("#");
+                    fileWriter.append(score.getPlayer().getUsername());
+                    fileWriter.append("#");
+                    fileWriter.append(score.getPlayer().getPassword());
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(score.getPlayer().getHighscore().getScore()));
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(score.getScore()));
+                    fileWriter.append("#");
+                }
+                fileWriter.append(Integer.toString(gameModel.getLevel().getPipesSize()));
+                fileWriter.append("#");
+                for (Pipe pipe : gameModel.getLevel().getPipes()){
+                    fileWriter.append(pipe.getColour().toString());
+                    fileWriter.append("#");
+                    fileWriter.append(Boolean.toString(pipe.getIsSelected()));
+                    fileWriter.append("#");
+                    fileWriter.append(Boolean.toString(pipe.getIsLocked()));
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getX()));
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getY()));
+                    fileWriter.append("#");
+                    if (pipe.getDot1().getConnection() instanceof Dot){
+                        fileWriter.append("Dot");
+                        fileWriter.append("#");
+
+                    }
+                    if (pipe.getDot1().getConnection() instanceof PipePart){
+                        fileWriter.append("PipePart");
+                        fileWriter.append("#");
+                        fileWriter.append(((PipePart) pipe.getDot1().getConnection()).getOrientation().toString());
+                        //if((PipePart) pipe.getDot1().getConnection()).getConnection1() instanceof PipePart){}
+                        //
+                        //plus opslaan van connection2, x, y, isLocked van elke PipePart
+                    }
+                }
                 //
 
             StringTokenizer tokenizer = new StringTokenizer(line, "#");

@@ -9,19 +9,47 @@ import java.util.List;
  */
 public class Level {
     private Space [][] playingField;
+
+    public Space [][] getPlayingField() {
+        return playingField;
+    }
+
+
+
     private List <Score> highScores;
+
+    public List<Score> getHighScores() {
+        return highScores;
+    }
+
+    public int getHighScoresSize(){
+        return highScores.size();
+    }
+
     private List <Pipe> pipes;
 
-    private int size;
+    public List<Pipe> getPipes() {
+        return pipes;
+    }
 
-    private Space selectedSpace;
+    public int getPipesSize(){
+        return pipes.size();
+    }
+
+    private int size;
 
     public int getSize() {
         return size;
     }
 
-    public List<Pipe> getPipes() {
-        return pipes;
+    private Space selectedSpace;
+
+    public Space getSelectedSpace() {
+        return selectedSpace;
+    }
+
+    public Space getDrawable(int x, int y) {
+        return playingField[x][y];
     }
 
     private int levelNumber;
@@ -82,21 +110,13 @@ public class Level {
         this.playingField[x][y].setSelected(true);
     }
 
-    public Space getSelectedSpace() {
-        return selectedSpace;
-    }
 
-    public Space [][] getPlayingField() {
-        return playingField;
-    }
 
-    public List<Score> getHighScores() {
-        return highScores;
-    }
 
-    public Space getDrawable(int x, int y) {
-        return playingField[x][y];
-    }
+
+
+
+
 
     public void createPipe(Space fromSpace, int toX, int toY) {
         if (fromSpace instanceof EmptySpace)

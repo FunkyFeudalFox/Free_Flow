@@ -8,6 +8,10 @@ public class Dot extends Space {
 
     Space connection;
 
+    public Space getConnection() {
+        return connection;
+    }
+
     Dot(int x, int y, Colour colour) {
         this.x = x;
         this.y = y;

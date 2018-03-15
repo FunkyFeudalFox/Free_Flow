@@ -22,7 +22,11 @@ public class StartOrLoadGamePresenter {
     private GameSaver model;
     private StartOrLoadGameView view;
     private Player player;
+    private Game gameModel;
 
+    public Game getGameModel() {
+        return gameModel;
+    }
 
     public StartOrLoadGamePresenter(GameSaver model, StartOrLoadGameView view, Player player) {
         this.model = model;
@@ -38,7 +42,8 @@ public class StartOrLoadGamePresenter {
             public void handle(ActionEvent event) {
                 GraphicGameView graphicGameView = new GraphicGameView(5);
                 Level level = new Level(5);
-                Game gameModel = new Game(0, player, level );
+                gameModel = new Game(0, player, level );
+                model.setGameModel(gameModel);
                 GraphicGamePresenter graphicGamePresenter = new GraphicGamePresenter(gameModel, graphicGameView);
                 Stage graphicGameStage = new Stage();
                 graphicGameStage.initOwner(view.getScene().getWindow());
@@ -46,7 +51,7 @@ public class StartOrLoadGamePresenter {
                 graphicGameStage.setScene(new Scene(graphicGameView));
                 graphicGameStage.setX(view.getScene().getWindow().getX());
                 graphicGameStage.setY(view.getScene().getWindow().getY());
-                graphicGameStage.setTitle("Start a game or load a saved game");
+                graphicGameStage.setTitle("Free Flow mode: easy");
                 graphicGameStage.showAndWait();
 
             }
