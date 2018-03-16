@@ -111,7 +111,7 @@ public class Game {
         for (int x = 0; x < level.getSize(); x++) {
             for (int y = 0; y < level.getSize(); y++) {
                 if (level.getPlayingField()[x][y] instanceof Dot &&
-                        !((Dot) level.getPlayingField()[x][y]).isLocked())
+                        !((Dot) level.getPlayingField()[x][y]).getIsLocked())
                     return false;
             }
         }

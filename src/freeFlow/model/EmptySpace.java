@@ -21,10 +21,18 @@ public class EmptySpace extends Space {
         isPartOfPipe = partOfPipe;
     }
 
+    public boolean isPartOfPipe() {
+        return isPartOfPipe;
+    }
+
     private Pipe pipe;
 
     public void setPipe(Pipe pipe) {
         this.pipe = pipe;
+    }
+
+    public Pipe getPipe() {
+        return pipe;
     }
 
     public char getConsoleImage() {

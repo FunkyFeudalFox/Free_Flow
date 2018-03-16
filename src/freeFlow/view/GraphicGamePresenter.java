@@ -87,11 +87,11 @@ public class GraphicGamePresenter {
 
     private void redraw(Space space) {
         if (space instanceof EmptySpace) {
-            view.drawSpace(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getSelected());
+            view.drawSpace(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getIsSelected());
         } else if (space instanceof Dot) {
-            view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getSelected());
+            view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getIsSelected());
         } else if (space instanceof PipePart) {
-            view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getSelected());
+            view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getIsSelected());
             //Level.moveNumber++
             //
             //

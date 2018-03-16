@@ -164,7 +164,7 @@ public class Level {
 
     private boolean scanSpace(Space origin, Space scan) {
         if (scan.getColour() == origin.getColour() &&
-                !scan.isLocked() &&
+                !scan.getIsLocked() &&
                 scan != origin) {
             connectPipeParts(origin, scan);
             return true;

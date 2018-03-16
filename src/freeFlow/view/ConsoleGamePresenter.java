@@ -29,10 +29,10 @@ public class ConsoleGamePresenter {
             view.drawPart(Character.forDigit(y + 1, 10));
             for (int x = 0; x < model.getLevel().getSize(); x++) {
                 Space part = model.getLevel().getDrawable(x, y);
-                view.drawSeparator(part.getSelected(), getPreviousSelected(x, y));
+                view.drawSeparator(part.getIsSelected(), getPreviousSelected(x, y));
                 view.drawPart(model.getLevel().getDrawable(x, y).getConsoleImage());
             }
-            view.drawEndOfLine(model.getLevel().getDrawable(model.getLevel().getSize() - 1, y).getSelected());
+            view.drawEndOfLine(model.getLevel().getDrawable(model.getLevel().getSize() - 1, y).getIsSelected());
         }
     }
 
@@ -40,14 +40,14 @@ public class ConsoleGamePresenter {
         if (x == 0) {
             return false;
         }
-        return model.getLevel().getDrawable(x - 1, y).getSelected();
+        return model.getLevel().getDrawable(x - 1, y).getIsSelected();
     }
 
     private boolean getNextSelected(int x, int y) {
         if (x == model.getLevel().getSize() -1) {
             return false;
         }
-        return model.getLevel().getDrawable(x + 1, y).getSelected();
+        return model.getLevel().getDrawable(x + 1, y).getIsSelected();
     }
 
     private boolean validateGridLocation(String location) {

@@ -262,19 +262,71 @@ public class GameSaver {
                     fileWriter.append("#");
                     fileWriter.append(Integer.toString(pipe.getY()));
                     fileWriter.append("#");
-                    if (pipe.getDot1().getConnection() instanceof Dot){
-                        fileWriter.append("Dot");
+                    fileWriter.append("dot1");
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getDot1().getX()));
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getDot1().getY()));
+                    fileWriter.append("#");
+                    fileWriter.append(pipe.getDot1().getColour().toString());
+                    fileWriter.append("#");
+                    fileWriter.append(Boolean.toString(pipe.getDot1().getIsLocked()));
+                    fileWriter.append("#");
+                    fileWriter.append("dot2");
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getDot2().getX()));
+                    fileWriter.append("#");
+                    fileWriter.append(Integer.toString(pipe.getDot2().getY()));
+                    fileWriter.append("#");
+                    fileWriter.append(pipe.getDot2().getColour().toString());
+                    fileWriter.append("#");
+                    fileWriter.append(Boolean.toString(pipe.getDot2().getIsLocked()));
+                    fileWriter.append("#");
+
+                    if (gameModel.getLevel().getSelectedSpace() instanceof EmptySpace){
+                        fileWriter.append("selectedSpace=EmptySpace");
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getX()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getY()) );
+                        fileWriter.append("#");
+                        fileWriter.append(gameModel.getLevel().getSelectedSpace().getColour().toString());
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsSelected()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsLocked()) );
+                        fileWriter.append("#");
+                        fileWriter.append(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getColour().toString() );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getIsSelected()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getIsLocked()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot1().getX()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot1().getY()) );
+                        fileWriter.append("#");
+                        fileWriter.append(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot1().getColour().toString() );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot1().getIsLocked()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot2().getX()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot2().getY()) );
+                        fileWriter.append("#");
+                        fileWriter.append(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot2().getColour().toString() );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot2().getIsLocked()) );
                         fileWriter.append("#");
 
+
+
+
+
                     }
-                    if (pipe.getDot1().getConnection() instanceof PipePart){
-                        fileWriter.append("PipePart");
-                        fileWriter.append("#");
-                        fileWriter.append(((PipePart) pipe.getDot1().getConnection()).getOrientation().toString());
-                        //if((PipePart) pipe.getDot1().getConnection()).getConnection1() instanceof PipePart){}
-                        //
-                        //plus opslaan van connection2, x, y, isLocked van elke PipePart
-                    }
+
+
+
                 }
                 //
 
