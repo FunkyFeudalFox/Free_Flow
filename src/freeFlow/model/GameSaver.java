@@ -318,15 +318,113 @@ public class GameSaver {
                         fileWriter.append("#");
                         fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getSelectedSpace()).getPipe().getDot2().getIsLocked()) );
                         fileWriter.append("#");
-
-
-
-
-
                     }
+                    if (gameModel.getLevel().getSelectedSpace() instanceof PipePart){
+                        fileWriter.append("selectedSpace=PipePart");
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getX()));
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getY()));
+                        fileWriter.append("#");
+                        fileWriter.append(gameModel.getLevel().getSelectedSpace().getColour().toString());
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsSelected()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsLocked()));
+                        fileWriter.append("#");
+                        fileWriter.append(((PipePart)gameModel.getLevel().getSelectedSpace()).getOrientation().toString());
+                        fileWriter.append("#");
+                    }
+                    if (gameModel.getLevel().getSelectedSpace() instanceof Dot){
+                        fileWriter.append("selectedSpace=Dot");
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getX()));
+                        fileWriter.append("#");
+                        fileWriter.append(Integer.toString(gameModel.getLevel().getSelectedSpace().getY()));
+                        fileWriter.append("#");
+                        fileWriter.append(gameModel.getLevel().getSelectedSpace().getColour().toString());
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsSelected()) );
+                        fileWriter.append("#");
+                        fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsLocked()));
+                        fileWriter.append("#");
+                    }
+                    for (int i = 0; i < gameModel.getLevel().getPlayingField().length; i++){
+                        fileWriter.append("PlayingField column " + i);
+                        fileWriter.append("#");
+                        for (int j = 0; j < gameModel.getLevel().getPlayingField()[i].length; j++ ){
+                            fileWriter.append("PlayingField row " + j);
+                            fileWriter.append("#");
+                            if (gameModel.getLevel().getPlayingField()[i][j] instanceof EmptySpace){
+                                fileWriter.append("EmptySpace");
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getX()));
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getY()));
+                                fileWriter.append("#");
+                                fileWriter.append(gameModel.getLevel().getPlayingField()[i][j].getColour().toString());
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsSelected()));
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsLocked()) );
+                                fileWriter.append("#");
+                                fileWriter.append(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getColour().toString() );
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getIsSelected()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getIsLocked()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot1().getX()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot1().getY()) );
+                                fileWriter.append("#");
+                                fileWriter.append(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot1().getColour().toString() );
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot1().getIsLocked()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot2().getX()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot2().getY()) );
+                                fileWriter.append("#");
+                                fileWriter.append(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot2().getColour().toString() );
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(((EmptySpace)gameModel.getLevel().getPlayingField()[i][j]).getPipe().getDot2().getIsLocked()) );
+                                fileWriter.append("#");
 
+                            }
+                            if (gameModel.getLevel().getPlayingField()[i][j] instanceof PipePart){
+                                fileWriter.append("PipePart");
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getX()));
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getY()));
+                                fileWriter.append("#");
+                                fileWriter.append(gameModel.getLevel().getPlayingField()[i][j].getColour().toString());
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsSelected()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsLocked()));
+                                fileWriter.append("#");
+                                fileWriter.append(((PipePart)gameModel.getLevel().getPlayingField()[i][j]).getOrientation().toString());
+                                fileWriter.append("#");
 
-
+                            }
+                            if (gameModel.getLevel().getPlayingField()[i][j] instanceof Dot){
+                                fileWriter.append("Dot");
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getX()) );
+                                fileWriter.append("#");
+                                fileWriter.append(Integer.toString(gameModel.getLevel().getPlayingField()[i][j].getY()) );
+                                fileWriter.append("#");
+                                fileWriter.append(gameModel.getLevel().getPlayingField()[i][j].getColour().toString());
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsSelected()));
+                                fileWriter.append("#");
+                                fileWriter.append(Boolean.toString(gameModel.getLevel().getPlayingField()[i][j].getIsLocked()));
+                                fileWriter.append("#");
+                            }
+                        }
+                    }
                 }
                 //
 
