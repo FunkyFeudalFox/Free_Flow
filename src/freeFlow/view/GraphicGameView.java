@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
  */
 public class GraphicGameView extends BorderPane {
 
+    private static final boolean DEBUG = true;
+
     private static final int BASE_CANVAS_WIDTH = 500;
     private static final int BASE_CANVAS_HEIGHT = 500;
     private static final int DOT_GRID_MARGIN = 10;
@@ -68,20 +70,6 @@ public class GraphicGameView extends BorderPane {
 
         gc.setFill(colour.getColour());
         gc.fillOval(x, y, spaceWidth - DOT_GRID_MARGIN, spaceHeight - DOT_GRID_MARGIN);
-    }
-
-    protected void drawPipe(double startLocationX, double startLocationY, double endLocationX, double endLocationY, Colour colour){
-        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
-
-
-        //choose colour
-
-
-        //draw
-        gc.strokeLine (startLocationX, startLocationY, endLocationX, endLocationY);
-        // also an option:
-        //gc.strokeRect();
-        //double x, double y, double w, double h
 
     }
 
@@ -156,4 +144,5 @@ public class GraphicGameView extends BorderPane {
         gc.fillRect(x + PIPE_GRID_MARGIN, y + spaceHeight / 2, spaceWidth - PIPE_GRID_MARGIN * 2, spaceHeight / 2);
         gc.fillRect(x + spaceWidth / 2, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
     }
+
 }

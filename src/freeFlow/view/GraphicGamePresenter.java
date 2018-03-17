@@ -43,8 +43,8 @@ public class GraphicGamePresenter {
     }
 
     private void start(){
-        model.setUserName("Johannes");
-        model.startGame();
+        // model.setUserName("Johannes");
+        // model.startGame();
         refreshView();
     }
 
@@ -54,8 +54,8 @@ public class GraphicGamePresenter {
 
     private int translateXToColumn(final double x) {
         final double width = this.view.getCanvas().getWidth();
-        final int columnResult = (int)(x / width * model.COLUMNS);
-        if (columnResult >= 0 && columnResult < model.COLUMNS) {
+        final int columnResult = (int) (x / width * model.getColumns());
+        if (columnResult >= 0 && columnResult < model.getColumns()) {
             return columnResult;
         } else {
             return -1;
@@ -64,8 +64,8 @@ public class GraphicGamePresenter {
 
     private int translateYToRow(final double y) {
         final double height = this.view.getCanvas().getHeight();
-        final int rowResult = (int)(y / height * model.ROWS);
-        if (rowResult >= 0 && rowResult < model.ROWS) {
+        final int rowResult = (int) (y / height * model.getRows());
+        if (rowResult >= 0 && rowResult < model.getRows()) {
             return rowResult;
         } else {
             return -1;
@@ -74,14 +74,14 @@ public class GraphicGamePresenter {
 
     private int translateColumnToX(final int column) {
         final double width = this.view.getCanvas().getWidth();
-        final int xResult = (int) (column * width / model.COLUMNS);
+        final int xResult = (int) (column * width / model.getColumns());
         return xResult;
 
     }
 
     private int translateRowToY(final int row) {
         final double height = this.view.getCanvas().getHeight();
-        final int yResult = (int) (row * height / model.ROWS);
+        final int yResult = (int) (row * height / model.getRows());
         return yResult;
     }
 
@@ -92,15 +92,13 @@ public class GraphicGamePresenter {
             view.drawDot(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), space.getIsSelected());
         } else if (space instanceof PipePart) {
             view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getIsSelected());
-            //Level.moveNumber++
-            //
-            //
+
             model.setMoveNumber(model.getMoveNumber() + 1);
         }
     }
 
     private void refreshView() {
-        view.drawGrid(model.COLUMNS, model.ROWS);
+        view.drawGrid(model.getColumns(), model.getRows());
         for (int row = 0; row < model.getLevel().getPlayingField().length; row++) {
             for (int col = 0; col < model.getLevel().getPlayingField()[row].length; col++) {
                 redraw(model.getLevel().getPlayingField()[row][col]);

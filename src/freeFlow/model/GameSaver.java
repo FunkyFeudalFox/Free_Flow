@@ -1,7 +1,6 @@
 package freeFlow.model;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent;
-import freeFlow.view.StartOrLoadGamePresenter;
+//import com.sun.media.jfxmedia.events.PlayerStateEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -219,9 +218,9 @@ public class GameSaver {
                 fileWriter.append("#");
                 fileWriter.append(Boolean.toString(gameModel.getExit()));
                 fileWriter.append("#");
-                fileWriter.append(Integer.toString(gameModel.getCOLUMNS()));
+            fileWriter.append(Integer.toString(gameModel.getColumns()));
                 fileWriter.append("#");
-                fileWriter.append(Integer.toString(gameModel.getROWS()));
+            fileWriter.append(Integer.toString(gameModel.getRows()));
                 fileWriter.append("#");
                 fileWriter.append("\n");
 
@@ -491,4 +490,23 @@ public class GameSaver {
         }
     }
 
+    public Level initLevelWithSize(int size, String dir) throws IOException {
+        Level level = new Level(size);
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + dir + File.separator + "level1.txt"))) {
+            for (int row = 0; row < size; row++) {
+                for (int column = 0; column < size; column++) {
+                    char space = (char) fileReader.read();
+                    switch (space) {
+                        case '.':
+                            break;
+                        default:
+                            level.addDot(new Dot(column, row, Colour.getColourFromChar(space)));
+                    }
+                }
+                fileReader.readLine();
+            }
+        }
+        return level;
+    }
 }

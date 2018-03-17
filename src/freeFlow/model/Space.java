@@ -43,8 +43,4 @@ public abstract class Space {
 
     abstract boolean isCreatePipeValid(Colour colour);
 
-
-
-
-
 }

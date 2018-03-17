@@ -36,4 +36,12 @@ public enum Colour {
         return colour;
     }
 
+    public static Colour getColourFromChar(char consoleImage) {
+        for (Colour c : values()) {
+            if (c.consoleImage == consoleImage)
+                return c;
+        }
+        return null;
+    }
+
 }

@@ -56,20 +56,13 @@ public class Game {
         return exit;
     }
 
-    //Hier moet t.z.t. eigenlijk iets zoals this.level.getSize();, maar voor nu
-    //de columns hardcoded omdat het programma anders een null-pointer exception
-    //gaf bij het aanmaken van een nieuw Game model
-    public int COLUMNS = 5;
 
-    public int getCOLUMNS() {
-        return COLUMNS;
+    public int getColumns() {
+        return level.getSize();
     }
 
-    //Zie opmerking hierboven. Hier geldt hetzelfde.
-    public int ROWS = 5;
-
-    public int getROWS() {
-        return ROWS;
+    public int getRows() {
+        return level.getSize();
     }
 
     //private GameSaver gameSaver;
