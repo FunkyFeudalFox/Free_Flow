@@ -28,11 +28,19 @@ public class Game {
 
     private Level level;
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public Level getLevel() {
         return level;
     }
 
     private boolean isSolved;
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 
     public boolean getIsSolved(){ return isSolved; }
 
@@ -74,6 +82,12 @@ public class Game {
         this.player = player;
         this.level = level;
         this.isSolved = false;
+    }
+
+    public Game(int moveNumber, boolean isSolved, boolean exit){
+        this.moveNumber = moveNumber;
+        this.isSolved = isSolved;
+        this.exit = exit;
     }
 
     public void startGame(){

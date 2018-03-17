@@ -26,6 +26,10 @@ public class Level {
         return highScores.size();
     }
 
+    public void setHighScores(List<Score> highScores) {
+        this.highScores = highScores;
+    }
+
     private List <Pipe> pipes;
 
     public List<Pipe> getPipes() {

@@ -223,6 +223,7 @@ public class GameSaver {
                 fileWriter.append("#");
                 fileWriter.append(Integer.toString(gameModel.getROWS()));
                 fileWriter.append("#");
+                fileWriter.append("\n");
 
                 fileWriter.append(gameModel.getPlayer().getName());
                 fileWriter.append("#");
@@ -232,11 +233,13 @@ public class GameSaver {
                 fileWriter.append("#");
                 fileWriter.append(Integer.toString(gameModel.getPlayer().getHighscore().getScore()));
                 fileWriter.append("#");
+                fileWriter.append("\n");
 
                 fileWriter.append(Integer.toString(gameModel.getLevel().getSize()));
                 fileWriter.append("#");
                 fileWriter.append(Integer.toString(gameModel.getLevel().getHighScoresSize()));
                 fileWriter.append("#");
+                fileWriter.append("\n");
                 for (Score score : gameModel.getLevel().getHighScores()){
                     fileWriter.append(score.getPlayer().getName());
                     fileWriter.append("#");
@@ -249,8 +252,10 @@ public class GameSaver {
                     fileWriter.append(Integer.toString(score.getScore()));
                     fileWriter.append("#");
                 }
+
                 fileWriter.append(Integer.toString(gameModel.getLevel().getPipesSize()));
                 fileWriter.append("#");
+                fileWriter.append("\n");
                 for (Pipe pipe : gameModel.getLevel().getPipes()){
                     fileWriter.append(pipe.getColour().toString());
                     fileWriter.append("#");
@@ -282,6 +287,7 @@ public class GameSaver {
                     fileWriter.append("#");
                     fileWriter.append(Boolean.toString(pipe.getDot2().getIsLocked()));
                     fileWriter.append("#");
+                    fileWriter.append("\n");
 
                     if (gameModel.getLevel().getSelectedSpace() instanceof EmptySpace){
                         fileWriter.append("selectedSpace=EmptySpace");
@@ -349,6 +355,8 @@ public class GameSaver {
                         fileWriter.append(Boolean.toString(gameModel.getLevel().getSelectedSpace().getIsLocked()));
                         fileWriter.append("#");
                     }
+                    fileWriter.append("\n");
+
                     for (int i = 0; i < gameModel.getLevel().getPlayingField().length; i++){
                         fileWriter.append("PlayingField column " + i);
                         fileWriter.append("#");
@@ -435,8 +443,52 @@ public class GameSaver {
         }
     }
 
-    public void loadGame() throws IOException {
+    public void loadEasyGame() throws IOException {
+        String line = "";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + "gameFile.csv"))){
+            line = fileReader.readLine();
+            StringTokenizer tokenizer = new StringTokenizer(line, "#");
+            int moveNumber = Integer.parseInt(tokenizer.nextToken());
+            Boolean isSolved = Boolean.valueOf(tokenizer.nextToken());
+            Boolean exit = Boolean.valueOf(tokenizer.nextToken());
+            int COLUMNS = Integer.parseInt(tokenizer.nextToken());
+            int ROWS = Integer.parseInt(tokenizer.nextToken());
+            Game gameModel = new Game(moveNumber, isSolved, exit);
 
+            line = fileReader.readLine();
+            tokenizer = new StringTokenizer(line, "#");
+            String name = tokenizer.nextToken();
+            String username = tokenizer.nextToken();
+            String password = tokenizer.nextToken();
+            int score = Integer.parseInt(tokenizer.nextToken());
+            Player player = new Player(name, username, password, score);
+
+            gameModel.setPlayer(player);
+
+            line = fileReader.readLine();
+            tokenizer = new StringTokenizer(line, "#");
+            int size = Integer.parseInt(tokenizer.nextToken());
+            int highscoresSize = Integer.parseInt(tokenizer.nextToken());
+
+            List <Score> highscores = new ArrayList<>();
+            line = fileReader.readLine();
+            tokenizer = new StringTokenizer(line, "#");
+            for (int i = 0; i < highscoresSize; i++){
+                String highscoreName = tokenizer.nextToken();
+                String highscoreUsername = tokenizer.nextToken();
+                String highscorePassword = tokenizer.nextToken();
+                int highscorePlayerScore = Integer.parseInt(tokenizer.nextToken());
+                int highscoreScore = Integer.parseInt(tokenizer.nextToken());
+                Player highscorePlayer = new Player(highscoreName, highscoreUsername, highscorePassword, highscorePlayerScore);
+                Score highscore = new Score(highscorePlayer, highscoreScore);
+                highscores.add(highscore);
+            }
+
+
+
+
+        }
     }
 
 }
