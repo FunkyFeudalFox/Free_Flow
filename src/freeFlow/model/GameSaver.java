@@ -427,14 +427,12 @@ public class GameSaver {
                     }
                 }
                 //
-
-            StringTokenizer tokenizer = new StringTokenizer(line, "#");
-            //
-            //for-loop om Level.playingField op te slaan
-            //
-
+            fileWriter.flush();
         }
-
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
     }
 
     public void loadGame() throws IOException {
