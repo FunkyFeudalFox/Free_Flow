@@ -33,7 +33,7 @@ public class PipePart extends Space {
     }
 
     public boolean isCreatePipeValid(Colour colour) {
-        return this.colour == colour;
+        return !isLocked && this.colour == colour;
     }
 
 

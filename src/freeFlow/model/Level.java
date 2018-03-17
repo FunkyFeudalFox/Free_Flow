@@ -115,13 +115,6 @@ public class Level {
     }
 
 
-
-
-
-
-
-
-
     public void createPipe(Space fromSpace, int toX, int toY) {
         if (fromSpace instanceof EmptySpace)
             // can't create pipe from empty space
@@ -132,25 +125,32 @@ public class Level {
             return;
         }
         // validate spaces between start and end point
+        int modX = fromSpace.getX() <= toX ? 1 : -1;
+        int modY = fromSpace.getY() <= toY ? 1 : -1;
         int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
         int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
         int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
         int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
-        for (int x = startX; x <= endX; x++) {
-            for (int y = startY; y <= endY; y++) {
+        //for (int x = startX; x <= endX; x++) {
+        for (int x = fromSpace.getX(); modX == 1 ? x <= toX : x >= toX; x += modX) {
+            //for (int y = startY; y <= endY; y++) {
+            for (int y = fromSpace.getY(); modY == 1 ? y <= toY : y >= toY; y += modY) {
                 if (!playingField[x][y].isCreatePipeValid(fromSpace.getColour()))
                     return;
             }
         }
         // validation OK => create pipe
-        for (int x = startX; x <= endX; x++) {
-            for (int y = startY; y <= endY; y++) {
-                if (playingField[x][y] instanceof EmptySpace) {
-                    Space toSpace = new PipePart(x, y, fromSpace.getColour());
+        //for (int x = startX; x <= endX; x++) {
+        for (int x = fromSpace.getX(); modX == 1 ? x <= toX : x >= toX; x += modX) {
+            //for (int y = startY; y <= endY; y++) {
+            for (int y = fromSpace.getY(); modY == 1 ? y <= toY : y >= toY; y += modY) {
+                Space toSpace = playingField[x][y];
+                if (toSpace instanceof EmptySpace) {
+                    toSpace = new PipePart(x, y, fromSpace.getColour());
                     addPipePart((PipePart) toSpace);
                     connectPipeParts(fromSpace, toSpace);
-                    fromSpace = toSpace;
                 }
+                fromSpace = toSpace;
             }
         }
         // scan neighbors of last space for possible connections
