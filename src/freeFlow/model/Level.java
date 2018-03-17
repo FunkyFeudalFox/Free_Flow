@@ -127,10 +127,10 @@ public class Level {
         // validate spaces between start and end point
         int modX = fromSpace.getX() <= toX ? 1 : -1;
         int modY = fromSpace.getY() <= toY ? 1 : -1;
-        int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
-        int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
-        int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
-        int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
+        //int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
+        //int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
+        //int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
+        //int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
         //for (int x = startX; x <= endX; x++) {
         for (int x = fromSpace.getX(); modX == 1 ? x <= toX : x >= toX; x += modX) {
             //for (int y = startY; y <= endY; y++) {

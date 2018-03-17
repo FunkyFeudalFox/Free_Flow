@@ -1,11 +1,16 @@
 package freeFlow.view;
 
 import freeFlow.model.*;
+import freeFlow.view.Help.RulesPresenter;
+import freeFlow.view.Help.RulesView;
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,6 +45,7 @@ public class GraphicGamePresenter {
         // init event handlers
         start();
         view.getCanvas().setOnMouseClicked(new MouseClickHandler());
+        addMenuEventHandlers();
     }
 
     private void start(){
@@ -119,6 +125,31 @@ public class GraphicGamePresenter {
         ((Stage) view.getCanvas().getScene().getWindow()).close();
     }
 
+    private void addMenuEventHandlers() {
+        view.getMiExit().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                exit();
+            }
+        });
+        view.getMiShow().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                RulesView rulesView = new RulesView();
+                new RulesPresenter(rulesView);
+                Stage helpStage = new Stage();
+                helpStage.setTitle("Spelregels");
+                helpStage.initOwner(view.getScene().getWindow());
+                helpStage.initModality(Modality.APPLICATION_MODAL);
+                Scene scene = new Scene(rulesView);
+                helpStage.setScene(scene);
+                helpStage.setX(view.getScene().getWindow().getX());
+                helpStage.setY(view.getScene().getWindow().getY() + 100);
+                helpStage.showAndWait();
+            }
+        });
+    }
+
     private class MouseClickHandler implements EventHandler<MouseEvent> {
 
         @Override
@@ -128,7 +159,7 @@ public class GraphicGamePresenter {
             int row = translateYToRow(event.getY());
             Space selected = model.getLevel().getSelectedSpace();
             if (selected != null) {
-                redraw(selected);
+                //redraw(selected);
                 model.getLevel().createPipe(selected, column, row);
             }
             model.getLevel().setSelected(column, row);

@@ -7,6 +7,7 @@ import freeFlow.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -66,7 +67,9 @@ public class StartOrLoadGamePresenter {
         try {
             level = model.initLevelWithSize(size, difficulty);
         } catch (IOException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
         if (level == null)
             return;

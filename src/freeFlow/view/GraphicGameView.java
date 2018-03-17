@@ -4,6 +4,9 @@ import freeFlow.model.Colour;
 import freeFlow.model.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
@@ -12,8 +15,6 @@ import javafx.scene.paint.Color;
  * @version 1.0 2/16/2018 15:15
  */
 public class GraphicGameView extends BorderPane {
-
-    private static final boolean DEBUG = true;
 
     private static final int BASE_CANVAS_WIDTH = 500;
     private static final int BASE_CANVAS_HEIGHT = 500;
@@ -25,6 +26,9 @@ public class GraphicGameView extends BorderPane {
     private double spaceWidth;
     private double spaceHeight;
 
+    private MenuItem miExit;
+    private MenuItem miShow;
+
     public GraphicGameView(int levelSize){
         this.initializeNodes();
         this.layoutNodes();
@@ -32,10 +36,18 @@ public class GraphicGameView extends BorderPane {
     }
 
     public void initializeNodes(){
+        //menu
+        miExit = new MenuItem("Verlaten");
+        miShow = new MenuItem("Spelregels");
+
         this.canvas = new Canvas(BASE_CANVAS_WIDTH, BASE_CANVAS_HEIGHT);
     }
 
     public void layoutNodes(){
+        Menu menuGame = new Menu("Spel", null, miExit);
+        Menu menuHelp = new Menu("Help", null, miShow);
+        MenuBar menuBar = new MenuBar(menuGame, menuHelp);
+        setTop(menuBar);
         this.setCenter(this.canvas);
     }
 
@@ -145,4 +157,11 @@ public class GraphicGameView extends BorderPane {
         gc.fillRect(x + spaceWidth / 2, y + PIPE_GRID_MARGIN, spaceWidth / 2, spaceHeight - PIPE_GRID_MARGIN * 2);
     }
 
+    public MenuItem getMiExit() {
+        return miExit;
+    }
+
+    public MenuItem getMiShow() {
+        return miShow;
+    }
 }

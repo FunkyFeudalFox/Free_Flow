@@ -22,7 +22,7 @@ public class Main extends Application {
         Level level = new Level(5);
 
         Game model = new Game(1, player, level);
-
+        model.startGame();
         GraphicGameView view = new GraphicGameView(5);
         GraphicGamePresenter presenter = new GraphicGamePresenter(model, view);
 
