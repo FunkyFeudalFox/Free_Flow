@@ -111,7 +111,10 @@ public class Level {
     private void connectPipeParts(Space fromSpace, Space toSpace) {
         fromSpace.setLocked(toSpace);
         if (toSpace instanceof PipePart)
-            ((PipePart) toSpace).setConnection1(fromSpace);
+            if (((PipePart) toSpace).getConnection1() != null)
+                ((PipePart) toSpace).setLocked(fromSpace);
+            else
+                ((PipePart) toSpace).setConnection1(fromSpace);
         else
             ((Dot) toSpace).setLocked(fromSpace);
     }
@@ -206,7 +209,10 @@ public class Level {
         if (scan.getColour() == origin.getColour() &&
                 !scan.getIsLocked() &&
                 scan != origin) {
+            //if (!origin.isLocked)
             connectPipeParts(origin, scan);
+            //else
+            //    connectPipeParts(scan, origin);
             return true;
         }
         return false;
