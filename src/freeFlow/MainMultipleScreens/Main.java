@@ -19,9 +19,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // testing screens
-        Player player = new Player("Johannes");
-        Level level = new Level(5);
 
         GameSaver model = new GameSaver();
 

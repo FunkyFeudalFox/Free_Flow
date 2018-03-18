@@ -19,7 +19,7 @@ public enum Colour {
     DARKBROWN('D', Color.BROWN),
     LILAC('L', Color.MEDIUMPURPLE);
 
-    private Color colour;
+    protected Color colour;
 
     private char consoleImage;
 
@@ -27,6 +27,7 @@ public enum Colour {
         this.consoleImage = consoleImage;
         this.colour = colour;
     }
+
 
     public char getConsoleImage() {
         return consoleImage;

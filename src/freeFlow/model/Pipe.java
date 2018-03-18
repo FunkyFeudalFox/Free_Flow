@@ -62,4 +62,14 @@ public class Pipe {
         this.isSelected = isSelected;
         this.dot1 = dot1;
     }
+
+    public Pipe(Colour colour, boolean isSelected, boolean isLocked, int x, int y, Dot dot1, Dot dot2){
+        this.colour = colour;
+        this.isSelected = isSelected;
+        this.isLocked = isLocked;
+        this.x = x;
+        this.y = y;
+        this.dot1 = dot1;
+        this.dot2 = dot2;
+    }
 }

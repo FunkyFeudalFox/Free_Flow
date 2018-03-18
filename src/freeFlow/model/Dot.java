@@ -19,6 +19,13 @@ public class Dot extends Space {
         this.isLocked = false;
     }
 
+    Dot(int x, int y, Colour colour, boolean isLocked){
+        this.x = x;
+        this.y = y;
+        this.colour = colour;
+        this.isLocked = isLocked;
+    }
+
     public char getConsoleImage() {
         return colour.getConsoleImage();
     }

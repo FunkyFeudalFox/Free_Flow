@@ -483,6 +483,39 @@ public class GameSaver {
                 Score highscore = new Score(highscorePlayer, highscoreScore);
                 highscores.add(highscore);
             }
+            int pipesSize = Integer.parseInt(tokenizer.nextToken());
+
+            List <Pipe> pipes = new ArrayList<>();
+            line = fileReader.readLine();
+            tokenizer = new StringTokenizer(line, "#");
+            for (int i = 0; i < pipesSize; i++){
+                String colourString = tokenizer.nextToken().substring(0,1);
+                char colourChar = colourString.charAt(0);
+                Colour colour = Colour.getColourFromChar(colourChar);
+                boolean isSelected = Boolean.parseBoolean(tokenizer.nextToken());
+                boolean isLocked = Boolean.parseBoolean(tokenizer.nextToken());
+                int x = Integer.parseInt(tokenizer.nextToken());
+                int y = Integer.parseInt(tokenizer.nextToken());
+                String dotString = tokenizer.nextToken();
+                int dot1x = Integer.parseInt(tokenizer.nextToken());
+                int dot1y = Integer.parseInt(tokenizer.nextToken());
+                String dot1ColourString = tokenizer.nextToken().substring(0,1);
+                char dot1ColourChar = dot1ColourString.charAt(0);
+                Colour dot1Colour = Colour.getColourFromChar(dot1ColourChar);
+                boolean dot1IsLocked = Boolean.parseBoolean(tokenizer.nextToken());
+                Dot dot1 = new Dot(dot1x, dot1y, dot1Colour, dot1IsLocked);
+
+                int dot2x = Integer.parseInt(tokenizer.nextToken());
+                int dot2y = Integer.parseInt(tokenizer.nextToken());
+                String dot2ColourString = tokenizer.nextToken().substring(0,1);
+                char dot2ColourChar = dot1ColourString.charAt(0);
+                Colour dot2Colour = Colour.getColourFromChar(dot1ColourChar);
+                boolean dot2IsLocked = Boolean.parseBoolean(tokenizer.nextToken());
+                Dot dot2 = new Dot(dot2x, dot2y, dot2Colour, dot2IsLocked);
+                Pipe pipe = new Pipe(colour, isSelected, isLocked, x, y, dot1, dot2 );
+                pipes.add(pipe);
+            }
+
 
 
 
