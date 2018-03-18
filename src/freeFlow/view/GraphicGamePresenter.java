@@ -99,7 +99,7 @@ public class GraphicGamePresenter {
         } else if (space instanceof PipePart) {
             view.drawPipePart(translateColumnToX(space.getX()), translateRowToY(space.getY()), space.getColour(), ((PipePart) space).getOrientation(), space.getIsSelected());
 
-            model.setMoveNumber(model.getMoveNumber() + 1);
+            //model.setMoveNumber(model.getMoveNumber() + 1);
         }
     }
 
@@ -114,8 +114,10 @@ public class GraphicGamePresenter {
 
     private void checkWinConditions() {
         if (model.checkWinConditions()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Proficiat! Je hebt gewonnen", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, String.format("Proficiat! Je hebt gewonnen in %d stappen.", model.getMoveNumber()), ButtonType.OK);
             alert.showAndWait();
+            Score score = new Score(model.getPlayer().getUsername(), model.getMoveNumber());
+            model.addHighScore(score);
             exit();
         }
     }
@@ -160,7 +162,8 @@ public class GraphicGamePresenter {
             Space selected = model.getLevel().getSelectedSpace();
             if (selected != null) {
                 //redraw(selected);
-                model.getLevel().createPipe(selected, column, row);
+                // model.getLevel().createPipe(selected, column, row);
+                model.makeMove(selected, column, row);
             }
             model.getLevel().setSelected(column, row);
             //view.drawSelection(translateColumnToX(column), translateRowToY(row));

@@ -1,10 +1,15 @@
 package freeFlow.model;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Arjan Tammer
  * @version 1.0 2/10/2018 16:46
  */
 public class Game {
+
+    private static final int MAX_HIGHSCORE_COUNT = 5;
 
     private int moveNumber;
 
@@ -69,7 +74,6 @@ public class Game {
 
 
 
-
     public Game(int moveNumber, Player player, Level level) {
         this.moveNumber = moveNumber;
         this.player = player;
@@ -96,17 +100,16 @@ public class Game {
 
     }
 
-    public void makeMove(){
-        //TODO
-        if (isLegalMove()){
-            moveNumber++;
+    public void makeMove(Space selected, int x, int y) {
 
+        if (isLegalMove(selected, x, y)) {
+            moveNumber++;
+            level.createPipe(selected, x, y);
         }
     }
 
-    public boolean isLegalMove(){
-        //TODO
-        return false;
+    public boolean isLegalMove(Space selected, int x, int y) {
+        return level.validateCreatePipe(selected, x, y);
     }
 
     public void undoMove(){
@@ -125,7 +128,15 @@ public class Game {
         return true;
     }
 
-
+    public void addHighScore(Score score) {
+        List<Score> highScores = level.getHighScores();
+        highScores.add(score);
+        Collections.sort(highScores);
+        if (highScores.size() > MAX_HIGHSCORE_COUNT)
+            highScores.remove(MAX_HIGHSCORE_COUNT - 1);
+        level.setHighScores(highScores);
+        level.writeHighScores(highScores);
+    }
 
 
 
