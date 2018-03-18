@@ -538,6 +538,7 @@ public class GameSaver {
     }
 
     public List<Score> loadHighScoresForLevel(String difficulty) throws IOException {
+        createDirectoryAndFile(gameFile);
         List<Score> highscores = new ArrayList<>();
         String line = "";
         try (BufferedReader fileReader = new BufferedReader(new FileReader("src"

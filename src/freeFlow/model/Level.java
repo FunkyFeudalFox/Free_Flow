@@ -214,16 +214,17 @@ public class Level {
 
     public void writeHighScores(List<Score> highScores) {
         // overwrite the highscores file
-        for (Score highScore : highScores) {
             try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src"
                     + File.separator + "resources" + File.separator + difficulty + File.separator + "highScoresFile.txt")))) {
-                pw.printf("%s#%d%n", highScore.getPlayer(), highScore.getScore());
+                for (Score highScore : highScores) {
+                    pw.printf("%s#%d%n", highScore.getPlayer(), highScore.getScore());
+                }
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText(e.getMessage());
                 alert.showAndWait();
             }
-        }
+
     }
 
 }

@@ -3,6 +3,8 @@ package freeFlow.view;
 import freeFlow.model.*;
 import freeFlow.view.Help.RulesPresenter;
 import freeFlow.view.Help.RulesView;
+import freeFlow.view.Score.ScorePresenter;
+import freeFlow.view.Score.ScoreView;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -118,8 +120,23 @@ public class GraphicGamePresenter {
             alert.showAndWait();
             Score score = new Score(model.getPlayer().getUsername(), model.getMoveNumber());
             model.addHighScore(score);
+            showHighScores();
             exit();
         }
+    }
+
+    private void showHighScores() {
+        ScoreView scoreView = new ScoreView();
+        new ScorePresenter(scoreView, model.getLevel().getHighScores());
+        Stage scoreStage = new Stage();
+        scoreStage.setTitle("Highscores");
+        scoreStage.initOwner(view.getScene().getWindow());
+        scoreStage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(scoreView);
+        scoreStage.setScene(scene);
+        scoreStage.setX(view.getScene().getWindow().getX());
+        scoreStage.setY(view.getScene().getWindow().getY() + 100);
+        scoreStage.showAndWait();
     }
 
     private void exit() {
