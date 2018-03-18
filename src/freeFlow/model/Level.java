@@ -1,5 +1,8 @@
 package freeFlow.model;
 
+import javafx.scene.control.Alert;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +61,12 @@ public class Level {
 
     private int levelNumber;
 
+    private String difficulty;
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public Level(int size) {
         this.size = size;
         levelNumber = 1;
@@ -72,7 +81,7 @@ public class Level {
         selectedSpace = null;
     }
 
-    protected String displayLevelSize(){
+    public String displayLevelSize() {
         return String.format("Level %d %dx%d", levelNumber, size, size);
     }
 
@@ -115,14 +124,14 @@ public class Level {
     }
 
 
-    public void createPipe(Space fromSpace, int toX, int toY) {
+    public boolean validateCreatePipe(Space fromSpace, int toX, int toY) {
         if (fromSpace instanceof EmptySpace)
             // can't create pipe from empty space
-            return;
+            return false;
         if (fromSpace.getX() != toX
                 && fromSpace.getY() != toY) {
             // can only create straight line
-            return;
+            return false;
         }
         // validate spaces between start and end point
         int modX = fromSpace.getX() <= toX ? 1 : -1;
@@ -136,9 +145,36 @@ public class Level {
             //for (int y = startY; y <= endY; y++) {
             for (int y = fromSpace.getY(); modY == 1 ? y <= toY : y >= toY; y += modY) {
                 if (!playingField[x][y].isCreatePipeValid(fromSpace.getColour()))
-                    return;
+                    return false;
             }
         }
+        return true;
+    }
+
+    public void createPipe(Space fromSpace, int toX, int toY) {
+//        if (fromSpace instanceof EmptySpace)
+//            // can't create pipe from empty space
+//            return;
+//        if (fromSpace.getX() != toX
+//                && fromSpace.getY() != toY) {
+//            // can only create straight line
+//            return;
+//        }
+        // validate spaces between start and end point
+        int modX = fromSpace.getX() <= toX ? 1 : -1;
+        int modY = fromSpace.getY() <= toY ? 1 : -1;
+        //int startX = fromSpace.getX() <= toX ? fromSpace.getX() : toX;
+        //int startY = fromSpace.getY() <= toY ? fromSpace.getY() : toY;
+        //int endX = toX > fromSpace.getX() ? toX : fromSpace.getX();
+        //int endY = toY > fromSpace.getY() ? toY : fromSpace.getY();
+        //for (int x = startX; x <= endX; x++) {
+        //for (int x = fromSpace.getX(); modX == 1 ? x <= toX : x >= toX; x += modX) {
+        //for (int y = startY; y <= endY; y++) {
+        //    for (int y = fromSpace.getY(); modY == 1 ? y <= toY : y >= toY; y += modY) {
+        //        if (!playingField[x][y].isCreatePipeValid(fromSpace.getColour()))
+        //            return;
+        //    }
+        //}
         // validation OK => create pipe
         //for (int x = startX; x <= endX; x++) {
         for (int x = fromSpace.getX(); modX == 1 ? x <= toX : x >= toX; x += modX) {
@@ -174,6 +210,20 @@ public class Level {
             return true;
         }
         return false;
+    }
+
+    public void writeHighScores(List<Score> highScores) {
+        // overwrite the highscores file
+        for (Score highScore : highScores) {
+            try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src"
+                    + File.separator + "resources" + File.separator + difficulty + File.separator + "highScoresFile.txt")))) {
+                pw.printf("%s#%d%n", highScore.getPlayer(), highScore.getScore());
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        }
     }
 
 }

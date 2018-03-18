@@ -96,7 +96,7 @@ public class GameSaver {
     }
 
     public void highScore2TxtFile(Score highscore) throws IOException {
-            createDirectoryAndFile(highScoresFile);
+        createDirectoryAndFile(highScoresFile);
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader("src"
                 + File.separator + "resources" + File.separator + "highScoresFile.txt"))) {
@@ -104,11 +104,11 @@ public class GameSaver {
                 StringTokenizer tokenizer = new StringTokenizer(line, "#");
                 String username = tokenizer.nextToken();
                 String score = tokenizer.nextToken();
-                if ((highscore.getPlayer().getUsername() != username) ||
-                        (highscore.getPlayer().getUsername() == username && Integer.toString(highscore.getScore()) !=  score) ){
+                if ((highscore.getPlayer() != username) ||
+                        (highscore.getPlayer() == username && Integer.toString(highscore.getScore()) != score)) {
                     try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src"
                             + File.separator + "resources" + File.separator + "highScoresFile.txt")))) {
-                        pw.printf("%s#%d%n", highscore.getPlayer().getUsername(), highscore.getScore());
+                        pw.printf("%s#%d%n", highscore.getPlayer(), highscore.getScore());
                     }
                     catch (IOException e) {
                         throw new IOException("Unable to write to file " + highScoresFile, e);
@@ -240,13 +240,7 @@ public class GameSaver {
                 fileWriter.append("#");
                 fileWriter.append("\n");
                 for (Score score : gameModel.getLevel().getHighScores()){
-                    fileWriter.append(score.getPlayer().getName());
-                    fileWriter.append("#");
-                    fileWriter.append(score.getPlayer().getUsername());
-                    fileWriter.append("#");
-                    fileWriter.append(score.getPlayer().getPassword());
-                    fileWriter.append("#");
-                    fileWriter.append(Integer.toString(score.getPlayer().getHighscore().getScore()));
+                    fileWriter.append(score.getPlayer());
                     fileWriter.append("#");
                     fileWriter.append(Integer.toString(score.getScore()));
                     fileWriter.append("#");
@@ -480,7 +474,7 @@ public class GameSaver {
                 int highscorePlayerScore = Integer.parseInt(tokenizer.nextToken());
                 int highscoreScore = Integer.parseInt(tokenizer.nextToken());
                 Player highscorePlayer = new Player(highscoreName, highscoreUsername, highscorePassword, highscorePlayerScore);
-                Score highscore = new Score(highscorePlayer, highscoreScore);
+                Score highscore = new Score(highscorePlayer.getUsername(), highscoreScore);
                 highscores.add(highscore);
             }
             int pipesSize = Integer.parseInt(tokenizer.nextToken());
@@ -541,5 +535,21 @@ public class GameSaver {
             }
         }
         return level;
+    }
+
+    public List<Score> loadHighScoresForLevel(String difficulty) throws IOException {
+        List<Score> highscores = new ArrayList<>();
+        String line = "";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader("src"
+                + File.separator + "resources" + File.separator + difficulty + File.separator + "highScoresFile.txt"))) {
+            while ((line = fileReader.readLine()) != null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, "#");
+                String highscoreUsername = tokenizer.nextToken();
+                int highscoreScore = Integer.parseInt(tokenizer.nextToken());
+                Score highscore = new Score(highscoreUsername, highscoreScore);
+                highscores.add(highscore);
+            }
+        }
+        return highscores;
     }
 }

@@ -66,6 +66,7 @@ public class StartOrLoadGamePresenter {
         Level level = null;
         try {
             level = model.initLevelWithSize(size, difficulty);
+            level.setHighScores(model.loadHighScoresForLevel(difficulty));
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -73,6 +74,7 @@ public class StartOrLoadGamePresenter {
         }
         if (level == null)
             return;
+        level.setDifficulty(difficulty);
         gameModel = new Game(0, player, level);
         model.setGameModel(gameModel);
         GraphicGamePresenter graphicGamePresenter = new GraphicGamePresenter(gameModel, graphicGameView);
@@ -82,7 +84,7 @@ public class StartOrLoadGamePresenter {
         graphicGameStage.setScene(new Scene(graphicGameView));
         graphicGameStage.setX(view.getScene().getWindow().getX());
         graphicGameStage.setY(view.getScene().getWindow().getY());
-        graphicGameStage.setTitle("Free Flow mode: " + difficulty);
+        graphicGameStage.setTitle(level.displayLevelSize());
         graphicGameStage.showAndWait();
 
     }

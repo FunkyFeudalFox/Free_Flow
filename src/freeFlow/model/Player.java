@@ -1,7 +1,5 @@
 package freeFlow.model;
 
-import java.util.List;
-
 /**
  * @author Arjan Tammer
  * @version 1.0 2/8/2018 21:14
@@ -44,13 +42,13 @@ public class Player {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.highscore = new Score(this);
+        this.highscore = new Score(username);
     }
 
     public Player(String name, String username, String password, int score){
         this.name = name;
         this.username = username;
         this.password = password;
-        this.highscore = new Score(this,score);
+        this.highscore = new Score(username, score);
     }
 }

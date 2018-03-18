@@ -15,26 +15,26 @@ public class Score implements Comparable <Score>{
         this.score = score;
     }
 
-    private Player player;
+    private String player;
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Score(Player player) {
+    public Score(String player) {
         this.player = player;
         this.score = 0;
     }
 
-    public Score(Player player, int score){
+    public Score(String player, int score) {
         this.player = player;
         this.score = score;
+    }
+
+    public String getPlayer() {
+        return player;
     }
 
     @Override
     public int compareTo(Score otherScore) {
         int scoreVerschil = this.getScore() - otherScore.getScore();
         if (scoreVerschil != 0) { return scoreVerschil; }
-        return this.player.getName().compareTo(otherScore.player.getName());
+        return this.player.compareTo(otherScore.player);
     }
 }
